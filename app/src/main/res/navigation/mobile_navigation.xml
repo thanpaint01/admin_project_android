@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/adminnav_home">
+
+    <fragment
+        android:id="@+id/adminnav_home"
+        android:name="vn.nlu.android.admin.ui.adminhome.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/adminfragment_home" />
+
+    <fragment
+        android:id="@+id/adminnav_user"
+        android:name="vn.nlu.android.admin.ui.adminuser.AdminFragment_User"
+        android:label="@string/menu_user"
+        tools:layout="@layout/adminfragment_user" />
+</navigation>
