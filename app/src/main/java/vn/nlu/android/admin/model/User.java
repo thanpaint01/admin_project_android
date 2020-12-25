@@ -1,20 +1,6 @@
 
 
-package vn.nlu.android.admin.ui.model;
-
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
-
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Date;
+package vn.nlu.android.admin.model;
 
 public class User {
     private int iduser;
@@ -23,13 +9,32 @@ public class User {
     private String img;
     private String sdt;
     private String diachi;
+    private String matkhau;
     private String email;
     private String gioitinh;
     private String ngaysinh;
     private int quyen;
     private int active;
+    private boolean expandable;
+
 
     public User() {
+    }
+
+    public User(int iduser, String taikhoan,String matkhau, String ten, String img, String sdt, String diachi, String email, String gioitinh, String ngaysinh, int quyen, int active) {
+        this.iduser = iduser;
+        this.taikhoan = taikhoan;
+        this.matkhau = matkhau;
+        this.ten = ten;
+        this.img = img;
+        this.sdt = sdt;
+        this.diachi = diachi;
+        this.email = email;
+        this.gioitinh = gioitinh;
+        this.ngaysinh = ngaysinh;
+        this.quyen = quyen;
+        this.active = active;
+        this.expandable = false;
     }
 
     public User(int iduser, String taikhoan, String ten, String img, String sdt, String diachi, String email, String gioitinh, String ngaysinh, int quyen, int active) {
@@ -45,6 +50,14 @@ public class User {
         this.quyen = quyen;
         this.active = active;
     }
+
+    public boolean isExpandable() { return expandable; }
+
+    public void setExpandable(boolean expandable) { this.expandable = expandable; }
+
+    public String getMatkhau() { return matkhau; }
+
+    public void setMatkhau(String matkhau) { this.matkhau = matkhau; }
 
     public String getNgaysinh() {
         return ngaysinh;

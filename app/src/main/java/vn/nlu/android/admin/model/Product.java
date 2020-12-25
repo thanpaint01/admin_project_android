@@ -1,6 +1,7 @@
-package vn.nlu.android.admin.ui.model;
+package vn.nlu.android.admin.model;
 
-public class SanPham {
+public class Product {
+
     private int idsp;
     private String img;
     private String tensp;
@@ -27,6 +28,7 @@ public class SanPham {
     private String cameraSau;
     private int active;
     private int tinhtrang;
+    private boolean expandable;
 
 
     public int getIdsp() {
@@ -237,7 +239,7 @@ public class SanPham {
         this.tinhtrang = tinhtrang;
     }
 
-    public SanPham(int idsp, String img, String tensp, int idkm, int tinhtrang, double gia) {
+    public Product(int idsp, String img, String tensp, int idkm, int tinhtrang, double gia) {
         this.idsp = idsp;
         this.img = img;
         this.tensp = tensp;
@@ -246,19 +248,44 @@ public class SanPham {
         this.gia = gia;
     }
 
-    public SanPham(int idsp, String img, String tensp, double gia) {
+    public Product(int idsp, String img, String tensp, double gia) {
         this.idsp = idsp;
         this.img = img;
         this.tensp = tensp;
         this.gia = gia;
     }
 
-    public SanPham(int idsp, String img, String tensp, double gia, int active, int tinhtrang) {
+    public Product(int idsp, String img, String tensp, double gia, int active, int tinhtrang) {
         this.idsp = idsp;
         this.img = img;
         this.tensp = tensp;
         this.gia = gia;
         this.active = active;
         this.tinhtrang = tinhtrang;
+    }
+
+    public Product(int idsp, String img, String tensp, String tenhang, int sale, double gia, int soluong, int idram, int idrom, int idpin, int baohanh, int idkm, String img01, String img02, String img03, String img04, String kichthuoc, String cameraTruoc, String cameraSau, int active, int tinhtrang) {
+        this.idsp = idsp;
+        this.img = img;
+        this.tensp = tensp;
+        this.tenhang = tenhang;
+        this.sale = sale;
+        this.gia = gia;
+        this.soluong = soluong;
+        this.idram = idram;
+        this.idrom = idrom;
+        this.idpin = idpin;
+        this.baohanh = baohanh;
+        this.idkm = idkm;
+        this.img01 = img01;
+        this.img02 = img02;
+        this.img03 = img03;
+        this.img04 = img04;
+        this.kichthuoc = kichthuoc;
+        this.cameraTruoc = cameraTruoc;
+        this.cameraSau = cameraSau;
+        this.active = active;
+        this.tinhtrang = tinhtrang;
+        this.expandable = false;
     }
 }

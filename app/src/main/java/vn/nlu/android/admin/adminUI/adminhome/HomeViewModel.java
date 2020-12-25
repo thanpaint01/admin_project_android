@@ -1,4 +1,4 @@
-package vn.nlu.android.admin.ui.adminhome;
+package vn.nlu.android.admin.adminUI.adminhome;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

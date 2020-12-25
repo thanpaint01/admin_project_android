@@ -1,20 +1,13 @@
-package vn.nlu.android.admin.ui.adminuser;
+package vn.nlu.android.admin.adminUI.product;
 
-import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -32,22 +25,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import vn.nlu.android.admin.Adapter.AdapterUser;
 import vn.nlu.android.admin.R;
-import vn.nlu.android.admin.ui.config.Server;
-import vn.nlu.android.admin.ui.model.User;
+import vn.nlu.android.admin.config.Server;
+import vn.nlu.android.admin.model.User;
 
-public class AdminFragment_User extends Fragment {
+public class AdminFragment_Product extends Fragment {
 
-    private TableLayout mTableLayout;
+    private RecyclerView recycleview_user;
     private ArrayList<User> data = new ArrayList<User>();
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        View root = inflater.inflate(R.layout.adminfragment_user, container, false);
-        // setup the table
-        mTableLayout = (TableLayout) root.findViewById(R.id.admintable_user);
-        mTableLayout.setStretchAllColumns(true);
+        View root = inflater.inflate(R.layout.admin_fragment_user, container, false);
+        recycleview_user = root.findViewById(R.id.recycleview_user);
         loadData();
         return root;
     }
@@ -64,27 +55,52 @@ public class AdminFragment_User extends Fragment {
                             JSONObject jsonObject = jsonArr.getJSONObject(i);
                             int iduser = jsonObject.getInt("iduser");
                             String taikhoan = jsonObject.getString("taikhoan");
+                            String matkhau = jsonObject.getString("matkhau");
+
                             String ten = jsonObject.getString("ten");
+                            if(ten.equals("") || ten.equals("null")){
+                                ten = taikhoan;
+                            }
                             String img = jsonObject.getString("img");
+                            if(img.equals("") || img.equals("null")){
+                                img = "img/user/No-Image.png";
+                            }
                             String sdt = jsonObject.getString("sdt");
+                            if(sdt.equals("") || sdt.equals("null")){
+                                sdt = "Not Set";
+                            }
                             String diachi = jsonObject.getString("diachi");
+                            if(diachi.equals("") || diachi.equals("null")){
+                                diachi = "Not Set";
+                            }
                             String email = jsonObject.getString("email");
+                            if(email.equals("") || email.equals("null")){
+                                email = "Not Set";
+                            }
                             String gioitinh = jsonObject.getString("gioitinh");
+                            if(gioitinh.equals("") || gioitinh.equals("null")){
+                                gioitinh = "Not Set";
+                            }
                             String ngaysinh = jsonObject.getString("ngaysinh");
+                            if(ngaysinh.equals("") || ngaysinh.equals("null")){
+                                ngaysinh = "Not Set";
+                            }
+
                             String quyen = jsonObject.getString("quyen");
                             String active = jsonObject.getString("active");
 
-                            int dataquyen = 0;
-                            int dataactive = 0;
-                            if (quyen.equals("")) {
+                            int dataquyen = 0 , dataactive = 0;
+                            if (quyen.equals("") || quyen.equals("null")) {
                                 dataquyen = 1;
-                            }
-                            if (active.equals("")) {
+                            } else if(quyen != null) dataquyen = Integer.parseInt(quyen);
+
+                            if (active.equals("")|| active.equals("null")) {
                                 dataactive = 1;
-                            }
-                            User user = new User(iduser, taikhoan, ten, img, sdt, diachi, email, gioitinh, ngaysinh, dataquyen, dataactive);
+                            } else  if(active != null) dataactive = Integer.parseInt(active);
+                            User user = new User(iduser, taikhoan,matkhau, ten, Server.HOST+img, sdt, diachi, email, gioitinh, ngaysinh, dataquyen, dataactive);
                             data.add(user);
                         }
+                        // SET DATA HERE
                         setdata(data);
 
                     } catch (JSONException e) {
@@ -108,6 +124,8 @@ public class AdminFragment_User extends Fragment {
     }
 
     private void setdata(ArrayList<User> data) {
-        System.out.println(data.size());
+        AdapterUser adpater = new AdapterUser(data,getContext());
+        recycleview_user.setAdapter(adpater);
+        recycleview_user.setHasFixedSize(true);
     }
 }

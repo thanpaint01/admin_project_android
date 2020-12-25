@@ -1,12 +1,46 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Admin 2dhp</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_title">Admin</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
     <string name="menu_home">Home</string>
     <string name="menu_user">User</string>
+    <string name="menu_product">Product</string>
+
+    <string name="password">Password:</string>
+    <string name="password_data">Password data</string>
+    <string name="username_data">Username data</string>
+    <string name="username">Username:</string>
+    <string name="address_user">Address:</string>
+    <string name="address_data">Address data</string>
+    <string name="phone_user">Phone:</string>
+    <string name="phone_data">Phone data</string>
+    <string name="email_user">Email:</string>
+    <string name="email_data">Email data</string>
+    <string name="image_user">Image User</string>
+    <string name="image_product">Image Product</string>
+    <string name="id_user">ID User:</string>
+    <string name="id_product">ID Product:</string>
+    <string name="id_data">Id data</string>
+    <string name="name_user">Name:</string>
+    <string name="name_data">Name data</string>
+    <string name="birthday">Birthday:</string>
+    <string name="birthday_data">Birthday data</string>
+    <string name="gender">Gender:</string>
+    <string name="gender_data">Gender data</string>
+    <string name="permission">Permission:</string>
+    <string name="permission_data">Permission data</string>
+    <string name="active">Active:</string>
+    <string name="active_data">Active data</string>
+    <string name="btn_edit_user">Edit User</string>
+    <string name="edit_user">Edit User</string>
+    <string name="cam_truoc">Camera Trước</string>
+    <string name="cam_truoc_data">Camera Trước data</string>
+    <string name="btn_edit_product">Edit Product</string>
+    <string name="btn_delete_user">Delete User</string>
+
 </resources>

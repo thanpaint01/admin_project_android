@@ -1,4 +1,4 @@
-package vn.nlu.android.admin.ui.adminhome;
+package vn.nlu.android.admin.adminUI.adminhome;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,7 +22,7 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.adminfragment_home, container, false);
+        View root = inflater.inflate(R.layout.admin_fragment_home, container, false);
         final TextView textView = root.findViewById(R.id.text_home);
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override

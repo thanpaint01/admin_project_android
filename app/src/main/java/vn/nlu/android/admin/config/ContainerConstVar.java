@@ -1,4 +1,4 @@
-package vn.nlu.android.admin.ui.config;
+package vn.nlu.android.admin.config;
 
 public final class ContainerConstVar {
     private  ContainerConstVar() { }  // Prevents instantiation

@@ -1,7 +1,6 @@
-package vn.nlu.android.admin.ui.model;
+package vn.nlu.android.admin.model;
 
-public class Product {
-
+public class SanPham {
     private int idsp;
     private String img;
     private String tensp;
@@ -238,7 +237,7 @@ public class Product {
         this.tinhtrang = tinhtrang;
     }
 
-    public Product(int idsp, String img, String tensp, int idkm, int tinhtrang, double gia) {
+    public SanPham(int idsp, String img, String tensp, int idkm, int tinhtrang, double gia) {
         this.idsp = idsp;
         this.img = img;
         this.tensp = tensp;
@@ -247,21 +246,19 @@ public class Product {
         this.gia = gia;
     }
 
-    public Product(int idsp, String img, String tensp, double gia) {
+    public SanPham(int idsp, String img, String tensp, double gia) {
         this.idsp = idsp;
         this.img = img;
         this.tensp = tensp;
         this.gia = gia;
     }
 
-    public Product(int idsp, String img, String tensp, double gia, int active, int tinhtrang) {
+    public SanPham(int idsp, String img, String tensp, double gia, int active, int tinhtrang) {
         this.idsp = idsp;
         this.img = img;
         this.tensp = tensp;
         this.gia = gia;
         this.active = active;
         this.tinhtrang = tinhtrang;
-
     }
-
 }

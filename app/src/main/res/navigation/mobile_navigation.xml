@@ -7,13 +7,20 @@
 
     <fragment
         android:id="@+id/adminnav_home"
-        android:name="vn.nlu.android.admin.ui.adminhome.HomeFragment"
+        android:name="vn.nlu.android.admin.adminUI.adminhome.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/adminfragment_home" />
+        tools:layout="@layout/admin_fragment_home" />
 
     <fragment
         android:id="@+id/adminnav_user"
-        android:name="vn.nlu.android.admin.ui.adminuser.AdminFragment_User"
+        android:name="vn.nlu.android.admin.adminUI.user.AdminFragment_User"
         android:label="@string/menu_user"
-        tools:layout="@layout/adminfragment_user" />
+        tools:layout="@layout/admin_fragment_user" />
+
+    <fragment
+        android:id="@+id/adminnav_product"
+        android:name="vn.nlu.android.admin.adminUI.product.AdminFragment_Product"
+        android:label="@string/menu_product"
+        tools:layout="@layout/admin_fragment_product" />
+
 </navigation>

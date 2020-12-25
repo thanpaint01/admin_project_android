@@ -1,4 +1,4 @@
-package vn.nlu.android.admin.ui.model;
+package vn.nlu.android.admin.model;
 
 public class Brand {
     private int id;
