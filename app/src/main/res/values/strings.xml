@@ -38,9 +38,31 @@
     <string name="active_data">Active data</string>
     <string name="btn_edit_user">Edit User</string>
     <string name="edit_user">Edit User</string>
-    <string name="cam_truoc">Camera Trước</string>
-    <string name="cam_truoc_data">Camera Trước data</string>
     <string name="btn_edit_product">Edit Product</string>
     <string name="btn_delete_user">Delete User</string>
+    <string name="name">Name:</string>
+    <string name="price">Price:</string>
+    <string name="price_data">Price data</string>
+    <string name="storage_data">Storage data</string>
+    <string name="sale">Sale:</string>
+    <string name="sale_data">Sale data</string>
+    <string name="storage">Storage:</string>
+    <string name="btn_view_description">View Description</string>
+    <string name="status_data">Status data</string>
+    <string name="status">Status:</string>
+    <string name="rear_camera_data">Rear camera data</string>
+    <string name="rear_camera">Rear camera</string>
+    <string name="front_camera_data">Front camera data</string>
+    <string name="front_camera">Front camera</string>
+    <string name="screen_data">Screen data</string>
+    <string name="screen">Screen</string>
+    <string name="guarantee_data">Guarantee data</string>
+    <string name="guarantee">Guarantee</string>
+    <string name="battery_data">Battery data</string>
+    <string name="battery">Battery:</string>
+    <string name="rom_data">Rom data</string>
+    <string name="rom">Rom</string>
+    <string name="ram_data">Ram data</string>
+    <string name="ram">Ram:</string>
 
 </resources>

@@ -7,8 +7,8 @@ public class Product {
     private String tensp;
     private String idhang;
     private String tenhang;
-    private int ram;
-    private int rom;
+    private String ram;
+    private String rom;
     private String pin;
     private int sale;
     private double gia;
@@ -69,22 +69,6 @@ public class Product {
 
     public void setTenhang(String tenhang) {
         this.tenhang = tenhang;
-    }
-
-    public int getRam() {
-        return ram;
-    }
-
-    public void setRam(int ram) {
-        this.ram = ram;
-    }
-
-    public int getRom() {
-        return rom;
-    }
-
-    public void setRom(int rom) {
-        this.rom = rom;
     }
 
     public String getPin() {
@@ -264,19 +248,20 @@ public class Product {
         this.tinhtrang = tinhtrang;
     }
 
-    public Product(int idsp, String img, String tensp, String tenhang, int sale, double gia, int soluong, int idram, int idrom, int idpin, int baohanh, int idkm, String img01, String img02, String img03, String img04, String kichthuoc, String cameraTruoc, String cameraSau, int active, int tinhtrang) {
+    public Product(int idsp, String img, String tensp, String tenhang, String sale, String gia, String soluong,
+                   String ram, String rom, String pin, String baohanh, String img01, String img02,
+                   String img03, String img04, String kichthuoc, String cameraTruoc, String cameraSau, int active, int tinhtrang) {
         this.idsp = idsp;
         this.img = img;
         this.tensp = tensp;
         this.tenhang = tenhang;
-        this.sale = sale;
-        this.gia = gia;
-        this.soluong = soluong;
-        this.idram = idram;
-        this.idrom = idrom;
-        this.idpin = idpin;
-        this.baohanh = baohanh;
-        this.idkm = idkm;
+        this.sale = Integer.parseInt(sale);
+        this.gia = Double.parseDouble(gia);
+        this.soluong = Integer.parseInt(sale);
+        this.ram = ram;
+        this.rom = rom;
+        this.pin = pin;
+        this.baohanh = Integer.parseInt(baohanh);
         this.img01 = img01;
         this.img02 = img02;
         this.img03 = img03;
@@ -287,5 +272,29 @@ public class Product {
         this.active = active;
         this.tinhtrang = tinhtrang;
         this.expandable = false;
+    }
+
+    public String getRam() {
+        return ram;
+    }
+
+    public void setRam(String ram) {
+        this.ram = ram;
+    }
+
+    public String getRom() {
+        return rom;
+    }
+
+    public void setRom(String rom) {
+        this.rom = rom;
+    }
+
+    public boolean isExpandable() {
+        return expandable;
+    }
+
+    public void setExpandable(boolean expandable) {
+        this.expandable = expandable;
     }
 }

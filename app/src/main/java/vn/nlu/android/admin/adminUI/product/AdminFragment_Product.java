@@ -25,87 +25,111 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import vn.nlu.android.admin.Adapter.AdapterUser;
+import vn.nlu.android.admin.Adapter.AdapterProduct;
 import vn.nlu.android.admin.R;
 import vn.nlu.android.admin.config.Server;
-import vn.nlu.android.admin.model.User;
+import vn.nlu.android.admin.model.Product;
 
 public class AdminFragment_Product extends Fragment {
 
-    private RecyclerView recycleview_user;
-    private ArrayList<User> data = new ArrayList<User>();
+    private RecyclerView recycleview_product;
+    private ArrayList<Product> data = new ArrayList<Product>();
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.admin_fragment_user, container, false);
-        recycleview_user = root.findViewById(R.id.recycleview_user);
+        View root = inflater.inflate(R.layout.admin_fragment_product, container, false);
+        recycleview_product = root.findViewById(R.id.recycleview_product);
         loadData();
         return root;
     }
 
     public void loadData() {
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.URLLogin, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.getallproduct, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                if (!response.trim().equals("error")) {
-                    try {
-                        JSONArray jsonArr = new JSONArray(response);
-                        for (int i = 0; i < jsonArr.length(); i++) {
-                            JSONObject jsonObject = jsonArr.getJSONObject(i);
-                            int iduser = jsonObject.getInt("iduser");
-                            String taikhoan = jsonObject.getString("taikhoan");
-                            String matkhau = jsonObject.getString("matkhau");
+                try {
+                    JSONArray jsonArr = new JSONArray(response);
+                    for (int i = 0; i < jsonArr.length(); i++) {
+                        JSONObject jsonObject = jsonArr.getJSONObject(i);
+                        int idsp = jsonObject.getInt("idsp");
 
-                            String ten = jsonObject.getString("ten");
-                            if(ten.equals("") || ten.equals("null")){
-                                ten = taikhoan;
-                            }
-                            String img = jsonObject.getString("img");
-                            if(img.equals("") || img.equals("null")){
-                                img = "img/user/No-Image.png";
-                            }
-                            String sdt = jsonObject.getString("sdt");
-                            if(sdt.equals("") || sdt.equals("null")){
-                                sdt = "Not Set";
-                            }
-                            String diachi = jsonObject.getString("diachi");
-                            if(diachi.equals("") || diachi.equals("null")){
-                                diachi = "Not Set";
-                            }
-                            String email = jsonObject.getString("email");
-                            if(email.equals("") || email.equals("null")){
-                                email = "Not Set";
-                            }
-                            String gioitinh = jsonObject.getString("gioitinh");
-                            if(gioitinh.equals("") || gioitinh.equals("null")){
-                                gioitinh = "Not Set";
-                            }
-                            String ngaysinh = jsonObject.getString("ngaysinh");
-                            if(ngaysinh.equals("") || ngaysinh.equals("null")){
-                                ngaysinh = "Not Set";
-                            }
-
-                            String quyen = jsonObject.getString("quyen");
-                            String active = jsonObject.getString("active");
-
-                            int dataquyen = 0 , dataactive = 0;
-                            if (quyen.equals("") || quyen.equals("null")) {
-                                dataquyen = 1;
-                            } else if(quyen != null) dataquyen = Integer.parseInt(quyen);
-
-                            if (active.equals("")|| active.equals("null")) {
-                                dataactive = 1;
-                            } else  if(active != null) dataactive = Integer.parseInt(active);
-                            User user = new User(iduser, taikhoan,matkhau, ten, Server.HOST+img, sdt, diachi, email, gioitinh, ngaysinh, dataquyen, dataactive);
-                            data.add(user);
+                        String img = jsonObject.getString("img");
+                        if (img.equals("") || img.equals("null")) {
+                            img = "img/user/No-Image.png";
                         }
-                        // SET DATA HERE
-                        setdata(data);
+                        String img01 = jsonObject.getString("img01");
+                        if (img01.equals("") || img01.equals("null")) {
+                            img01 = "img/user/No-Image.png";
+                        }
+                        String img02 = jsonObject.getString("img02");
+                        if (img02.equals("") || img02.equals("null")) {
+                            img02 = "img/user/No-Image.png";
+                        }
+                        String img03 = jsonObject.getString("img03");
+                        if (img03.equals("") || img03.equals("null")) {
+                            img03 = "img/user/No-Image.png";
+                        }
+                        String img04 = jsonObject.getString("img04");
+                        if (img04.equals("") || img04.equals("null")) {
+                            img04 = "img/user/No-Image.png";
+                        }
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        String ten = jsonObject.getString("ten");
+                        ten = isSet(ten);
+                        String tenhang = jsonObject.getString("tenhang");
+                        tenhang = isSet(tenhang);
+
+                        String gia = jsonObject.getString("gia");
+                        if (gia.equals("") || gia.equals("null")) {
+                            gia = "0";
+                        }
+                        String soluong = jsonObject.getString("soluong");
+                        if (soluong.equals("") || soluong.equals("null")) {
+                            soluong = "0";
+                        }
+                        String baohanh = jsonObject.getString("baohanh");
+                        if (baohanh.equals("") || baohanh.equals("null")) {
+                            baohanh = "0";
+                        }
+
+                        String sale = jsonObject.getString("sale");
+                        sale = isSet(sale);
+                        String ram = jsonObject.getString("ram");
+                        ram = isSet(ram);
+                        String rom = jsonObject.getString("rom");
+                        rom = isSet(rom);
+                        String pin = jsonObject.getString("pin");
+                        pin = isSet(pin);
+                        String kichthuoc = jsonObject.getString("kichthuoc");
+                        kichthuoc = isSet(kichthuoc);
+                        String cameratruoc = jsonObject.getString("cameratruoc");
+                        cameratruoc = isSet(cameratruoc);
+                        String camerasau = jsonObject.getString("camerasau");
+                        camerasau = isSet(camerasau);
+
+                        String tinhtrang = jsonObject.getString("tinhtrang");
+                        String active = jsonObject.getString("active");
+
+                        int datatinhtrang = 0, dataactive = 0;
+                        if (tinhtrang.equals("") || tinhtrang.equals("null")) {
+                            datatinhtrang = 0;
+                        } else if (tinhtrang != null) datatinhtrang = Integer.parseInt(tinhtrang);
+
+                        if (active.equals("") || active.equals("null")) {
+                            dataactive = 1;
+                        } else if (active != null) dataactive = Integer.parseInt(active);
+
+                        Product p = new Product(idsp, Server.HOST+img, ten, tenhang, sale, gia, soluong,
+                                 ram,  rom,  pin,  baohanh,  Server.HOST+img01,  Server.HOST+img02,
+                                Server.HOST+img03,  Server.HOST+img04,  kichthuoc,  cameratruoc,  camerasau,  datatinhtrang,  dataactive);
+                        data.add(p);
                     }
+                    // SET DATA HERE
+                    setdata(data);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
@@ -123,9 +147,16 @@ public class AdminFragment_Product extends Fragment {
         requestQueue.add(stringRequest);
     }
 
-    private void setdata(ArrayList<User> data) {
-        AdapterUser adpater = new AdapterUser(data,getContext());
-        recycleview_user.setAdapter(adpater);
-        recycleview_user.setHasFixedSize(true);
+    private void setdata(ArrayList<Product> data) {
+        AdapterProduct adpater = new AdapterProduct(data, getContext());
+        recycleview_product.setAdapter(adpater);
+        recycleview_product.setHasFixedSize(true);
     }
+    private String isSet(String s){
+        if (s.equals("") || s.equals("null")) {
+            s = "Not Set";
+        }
+        return s;
+    }
+
 }

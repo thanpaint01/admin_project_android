@@ -41,23 +41,149 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <TextView  android:clickable="false"
+                    <TextView
                         android:id="@+id/textView_idtitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:clickable="false"
                         android:singleLine="true"
                         android:text="@string/id_product"
                         android:textAlignment="viewStart" />
 
-                    <TextView  android:clickable="false"
+                    <TextView
                         android:id="@+id/textView_idproduct"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="12dp"
                         android:layout_weight="8"
+                        android:clickable="false"
                         android:text="@string/id_data"
                         android:textAlignment="viewEnd" />
+                </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView_nametitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:singleLine="true"
+                        android:text="@string/name"
+                        android:textAlignment="viewStart" />
+
+                    <TextView
+                        android:id="@+id/textView_nameproduct"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
+                        android:layout_weight="8"
+                        android:clickable="false"
+                        android:text="@string/name_data"
+                        android:textAlignment="viewEnd" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView_branchtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:singleLine="true"
+                        android:text="Branch:"
+                        android:textAlignment="viewStart" />
+
+                    <TextView
+                        android:id="@+id/textView_branchproduct"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
+                        android:layout_weight="8"
+                        android:clickable="false"
+                        android:text="Branch data"
+                        android:textAlignment="viewEnd" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView_pricetitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:singleLine="true"
+                        android:text="@string/price"
+                        android:textAlignment="viewStart" />
+
+                    <TextView
+                        android:id="@+id/textView_priceproduct"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
+                        android:layout_weight="8"
+                        android:clickable="false"
+                        android:text="@string/price_data"
+                        android:textAlignment="viewEnd" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView_storetitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:singleLine="true"
+                        android:text="@string/storage"
+                        android:textAlignment="viewStart" />
+
+                    <TextView
+                        android:id="@+id/textView_storeproduct"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
+                        android:layout_weight="8"
+                        android:clickable="false"
+                        android:text="@string/storage_data"
+                        android:textAlignment="viewEnd" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView_saletitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:singleLine="true"
+                        android:text="@string/sale"
+                        android:textAlignment="viewStart" />
+
+                    <TextView
+                        android:id="@+id/textView_saleproduct"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
+                        android:layout_weight="8"
+                        android:clickable="false"
+                        android:text="@string/sale_data"
+                        android:textAlignment="viewEnd" />
                 </LinearLayout>
 
 
@@ -69,8 +195,6 @@
             android:id="@+id/expandable_data_product"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-
             android:padding="12dp">
 
             <LinearLayout
@@ -84,34 +208,298 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <TextView  android:clickable="false"
-                        android:id="@+id/textView_productnametitle"
+                    <TextView
+                        android:id="@+id/textView_ramtitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="14dp"
+                        android:clickable="false"
                         android:padding="4dp"
-                        android:text="@string/cam_truoc" />
+                        android:text="@string/ram" />
 
-                    <TextView  android:clickable="false"
-                        android:id="@+id/textView_productnameproduct"
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/textView_ramproduct"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="14dp"
                         android:layout_weight="1"
+                        android:clickable="false"
                         android:gravity="end"
                         android:padding="4dp"
-                        android:text="@string/cam_truoc_data" />
+                        android:text="@string/ram_data" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView_romtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:clickable="false"
+                        android:padding="4dp"
+                        android:text="@string/rom" />
+
+                    <TextView
+                        android:id="@+id/textView_romproduct"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="14dp"
+                        android:layout_weight="1"
+                        android:clickable="false"
+                        android:gravity="end"
+                        android:padding="4dp"
+                        android:text="@string/rom_data" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView_batterytitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:clickable="false"
+                        android:padding="4dp"
+                        android:text="@string/battery" />
+
+                    <TextView
+                        android:id="@+id/textView_batteryproduct"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="14dp"
+                        android:layout_weight="1"
+                        android:clickable="false"
+                        android:gravity="end"
+                        android:padding="4dp"
+                        android:text="@string/battery_data" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView_guaranteetitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:clickable="false"
+                        android:padding="4dp"
+                        android:text="@string/guarantee" />
+
+                    <TextView
+                        android:id="@+id/textView_guaranteeproduct"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="14dp"
+                        android:layout_weight="1"
+                        android:clickable="false"
+                        android:gravity="end"
+                        android:padding="4dp"
+                        android:text="@string/guarantee_data" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView_screentitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:clickable="false"
+                        android:padding="4dp"
+                        android:text="@string/screen" />
+
+                    <TextView
+                        android:id="@+id/textView_screenproduct"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="14dp"
+                        android:layout_weight="1"
+                        android:clickable="false"
+                        android:gravity="end"
+                        android:padding="4dp"
+                        android:text="@string/screen_data" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView_frontcamtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:clickable="false"
+                        android:padding="4dp"
+                        android:text="@string/front_camera" />
+
+                    <TextView
+                        android:id="@+id/textView_frontcamproduct"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="14dp"
+                        android:layout_weight="1"
+                        android:clickable="false"
+                        android:gravity="end"
+                        android:padding="4dp"
+                        android:text="@string/front_camera_data" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView_rearcamtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:clickable="false"
+                        android:padding="4dp"
+                        android:text="@string/rear_camera" />
+
+                    <TextView
+                        android:id="@+id/textView_rearcamproduct"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="14dp"
+                        android:layout_weight="1"
+                        android:clickable="false"
+                        android:gravity="end"
+                        android:padding="4dp"
+                        android:text="@string/rear_camera_data" />
                 </LinearLayout>
 
 
-
-                <Button
-                    android:id="@+id/button_editproduct"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView_statustitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:clickable="false"
+                        android:padding="4dp"
+                        android:text="@string/status" />
+
+                    <TextView
+                        android:id="@+id/textView_statusproduct"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="14dp"
+                        android:layout_weight="1"
+                        android:clickable="false"
+                        android:gravity="end"
+                        android:padding="4dp"
+                        android:text="@string/status_data" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView_activetitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:clickable="false"
+                        android:padding="4dp"
+                        android:text="@string/active" />
+
+                    <TextView
+                        android:id="@+id/textView_activeproduct"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="14dp"
+                        android:layout_weight="1"
+                        android:clickable="false"
+                        android:gravity="end"
+                        android:padding="4dp"
+                        android:text="@string/active_data" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imgView_product1"
+                        android:layout_width="128dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/image_product"
+                        app:srcCompat="@drawable/ic_baseline_image_24" />
+
+                    <ImageView
+                        android:id="@+id/imgView_product2"
+                        android:layout_width="128dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/image_product"
+                        app:srcCompat="@drawable/ic_baseline_image_24" />
+
+                    <ImageView
+                        android:id="@+id/imgView_product3"
+                        android:layout_width="128dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/image_product"
+                        app:srcCompat="@drawable/ic_baseline_image_24" />
+
+                    <ImageView
+                        android:id="@+id/imgView_product4"
+                        android:layout_width="128dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/image_product"
+                        app:srcCompat="@drawable/ic_baseline_image_24" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_marginTop="8dp"
-                    android:text="@string/btn_edit_product" />
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="8dp">
+
+                    <Button
+                        android:id="@+id/button_descriptionproduct"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="@string/btn_view_description" />
+
+                    <Button
+                        android:id="@+id/button_editproduct"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        android:text="@string/btn_edit_product" />
+                </LinearLayout>
             </LinearLayout>
 
         </RelativeLayout>

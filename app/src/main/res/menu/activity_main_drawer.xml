@@ -12,5 +12,9 @@
             android:id="@+id/adminnav_user"
             android:icon="@drawable/ic_baseline_account_box_24"
             android:title="User" />
+        <item
+            android:id="@+id/adminnav_product"
+            android:icon="@drawable/ic_baseline_smartphone_24"
+            android:title="Product" />
     </group>
 </menu>
