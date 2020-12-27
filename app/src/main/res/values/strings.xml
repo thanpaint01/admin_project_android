@@ -71,5 +71,25 @@
     <string name="id_rom">ID Rom:</string>
     <string name="id_pin">ID Pin:</string>
     <string name="id_price">ID Price:</string>
+    <string name="menu_brand">Brand</string>
+    <string name="image_brand">Image Brand</string>
+    <string name="menu_sale">Sale</string>
+    <string name="id_brand">ID Brand:</string>
+    <string name="id_sale">ID Sale:</string>
+    <string name="sale_sale">Discount:</string>
+    <string name="daystart_sale">Day Start:</string>
+    <string name="daystart_data">Day Start data</string>
+    <string name="dayend_sale">Day End:</string>
+    <string name="dayend_data">Day End data</string>
+    <string name="menu_slide">Slide</string>
+    <string name="menu_comment">Comment</string>
+    <string name="id_slide">ID Slide:</string>
+    <string name="image_slide">Image Slide</string>
+    <string name="id_comment">ID Comment:</string>
+    <string name="comment_comment">Comment:</string>
+    <string name="comment_data">Comment data</string>
+    <string name="iduser_comment">ID User:</string>
+    <string name="productname_data">Product Name data</string>
+    <string name="productname_comment">Product Name:</string>
 
 </resources>

@@ -20,5 +20,25 @@
             android:id="@+id/adminnav_tag"
             android:icon="@drawable/ic_baseline_label_24"
             android:title="Tag" />
+
+        <item
+            android:id="@+id/adminnav_brand"
+            android:icon="@drawable/ic_baseline_business_24"
+            android:title="Brand" />
+
+        <item
+            android:id="@+id/adminnav_sale"
+            android:icon="@drawable/ic_baseline_content_cut_24"
+            android:title="Sale" />
+
+        <item
+            android:id="@+id/adminnav_slide"
+            android:icon="@drawable/ic_baseline_slideshow_24"
+            android:title="Slide" />
+
+        <item
+            android:id="@+id/adminnav_comment"
+            android:icon="@drawable/ic_baseline_comment_24"
+            android:title="Comment" />
     </group>
 </menu>

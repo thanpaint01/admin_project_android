@@ -29,4 +29,28 @@
         android:label="@string/menu_tag"
         tools:layout="@layout/admin_fragment_tag" />
 
+    <fragment
+        android:id="@+id/adminnav_brand"
+        android:name="vn.nlu.android.admin.adminUI.brand.AdminFragment_Brand"
+        android:label="@string/menu_brand"
+        tools:layout="@layout/admin_fragment_brand" />
+
+    <fragment
+        android:id="@+id/adminnav_sale"
+        android:name="vn.nlu.android.admin.adminUI.sale.AdminFragment_Sale"
+        android:label="@string/menu_sale"
+        tools:layout="@layout/admin_fragment_sale" />
+
+    <fragment
+        android:id="@+id/adminnav_slide"
+        android:name="vn.nlu.android.admin.adminUI.slide.AdminFragment_Slide"
+        android:label="@string/menu_slide"
+        tools:layout="@layout/admin_fragment_slide" />
+
+    <fragment
+        android:id="@+id/adminnav_comment"
+        android:name="vn.nlu.android.admin.adminUI.comment.AdminFragment_Comment"
+        android:label="@string/menu_comment"
+        tools:layout="@layout/admin_fragment_comment" />
+
 </navigation>

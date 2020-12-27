@@ -5,12 +5,22 @@ public class Brand {
     private String nameOfBrand;
     private String img;
     private int active;
+    private boolean expandable;
+
+    public boolean isExpandable() {
+        return expandable;
+    }
+
+    public void setExpandable(boolean expandable) {
+        this.expandable = expandable;
+    }
 
     public Brand(int id, String nameOfBrand, String img, int active) {
         this.id = id;
         this.nameOfBrand = nameOfBrand;
         this.img = img;
         this.active = active;
+        expandable = false;
     }
 
     public int getId() {

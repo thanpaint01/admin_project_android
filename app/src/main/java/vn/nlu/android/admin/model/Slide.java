@@ -4,6 +4,7 @@ public class Slide {
     private int id;
     private String resouceImg;
     private int active;
+    private boolean expandable;
 
     public int getId() {
         return id;
@@ -33,5 +34,14 @@ public class Slide {
         this.id = id;
         this.resouceImg = resouceImg;
         this.active = active;
+        this.expandable = false;
+    }
+
+    public boolean isExpandable() {
+        return expandable;
+    }
+
+    public void setExpandable(boolean expandable) {
+        this.expandable = expandable;
     }
 }

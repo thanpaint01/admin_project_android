@@ -329,7 +329,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
                         android:layout_weight="1"
-                        android:text="@string/btn_edit_user" />
+                        android:text="@string/btn_edit" />
 
                     <Button
                         android:id="@+id/button_deleteuser"
@@ -338,7 +338,7 @@
                         android:layout_gravity="center"
                         android:layout_margin="8dp"
                         android:layout_weight="1"
-                        android:text="@string/btn_delete_user" />
+                        android:text="@string/btn_delete" />
                 </LinearLayout>
 
             </LinearLayout>
