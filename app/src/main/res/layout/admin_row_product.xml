@@ -215,7 +215,7 @@
                         android:layout_marginStart="14dp"
                         android:clickable="false"
                         android:padding="4dp"
-                        android:text="@string/ram" />
+                        android:text="@string/ramRomBattery" />
 
                     <TextView
                         android:id="@+id/textView_ramproduct"

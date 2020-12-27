@@ -47,63 +47,49 @@ public class AdminFragment_User extends Fragment {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.URLLogin, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                if (!response.trim().equals("error")) {
-                    try {
-                        JSONArray jsonArr = new JSONArray(response);
-                        for (int i = 0; i < jsonArr.length(); i++) {
-                            JSONObject jsonObject = jsonArr.getJSONObject(i);
-                            int iduser = jsonObject.getInt("iduser");
-                            String taikhoan = jsonObject.getString("taikhoan");
-                            String matkhau = jsonObject.getString("matkhau");
+                try {
+                    JSONArray jsonArr = new JSONArray(response);
+                    for (int i = 0; i < jsonArr.length(); i++) {
+                        JSONObject jsonObject = jsonArr.getJSONObject(i);
+                        int iduser = jsonObject.getInt("iduser");
+                        String taikhoan = jsonObject.getString("taikhoan");
+                        String matkhau = jsonObject.getString("matkhau");
 
-                            String ten = jsonObject.getString("ten");
-                            if(ten.equals("") || ten.equals("null")){
-                                ten = taikhoan;
-                            }
-                            String img = jsonObject.getString("img");
-                            if(img.equals("") || img.equals("null")){
-                                img = "img/user/No-Image.png";
-                            }
-                            String sdt = jsonObject.getString("sdt");
-                            if(sdt.equals("") || sdt.equals("null")){
-                                sdt = "Not Set";
-                            }
-                            String diachi = jsonObject.getString("diachi");
-                            if(diachi.equals("") || diachi.equals("null")){
-                                diachi = "Not Set";
-                            }
-                            String email = jsonObject.getString("email");
-                            if(email.equals("") || email.equals("null")){
-                                email = "Not Set";
-                            }
-                            String gioitinh = jsonObject.getString("gioitinh");
-                            if(gioitinh.equals("") || gioitinh.equals("null")){
-                                gioitinh = "Not Set";
-                            }
-                            String ngaysinh = jsonObject.getString("ngaysinh");
-                            if(ngaysinh.equals("") || ngaysinh.equals("null")){
-                                ngaysinh = "Not Set";
-                            }
-
-                            String quyen = jsonObject.getString("quyen");
-                            String active = jsonObject.getString("active");
-
-                            int dataquyen = 0 , dataactive = 0;
-                            if (quyen.equals("") || quyen.equals("null")) {
-                                dataquyen = 1;
-                            } else if(quyen != null) dataquyen = Integer.parseInt(quyen);
-
-                            if (active.equals("")|| active.equals("null")) {
-                                dataactive = 1;
-                            } else  if(active != null) dataactive = Integer.parseInt(active);
-                            User user = new User(iduser, taikhoan,matkhau, ten, Server.HOST+img, sdt, diachi, email, gioitinh, ngaysinh, dataquyen, dataactive);
-                            data.add(user);
+                        String ten = jsonObject.getString("ten");
+                        ten = isSet(ten);
+                        String img = jsonObject.getString("img");
+                        if (img.equals("") || img.equals("null")) {
+                            img = "img/user/No-Image.png";
                         }
-                        // SET DATA HERE
-                        setdata(data);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        String sdt = jsonObject.getString("sdt");
+                        sdt = isSet(sdt);
+                        String diachi = jsonObject.getString("diachi");
+                        diachi = isSet(diachi);
+                        String email = jsonObject.getString("email");
+                        email = isSet(email);
+                        String gioitinh = jsonObject.getString("gioitinh");
+                        gioitinh = isSet(gioitinh);
+                        String ngaysinh = jsonObject.getString("ngaysinh");
+                        ngaysinh = isSet(ngaysinh);
+
+                        String quyen = jsonObject.getString("quyen");
+                        String active = jsonObject.getString("active");
+
+                        int dataquyen = 0, dataactive = 0;
+                        if (quyen.equals("") || quyen.equals("null")) {
+                            dataquyen = 1;
+                        } else if (quyen != null) dataquyen = Integer.parseInt(quyen);
+
+                        if (active.equals("") || active.equals("null")) {
+                            dataactive = 1;
+                        } else if (active != null) dataactive = Integer.parseInt(active);
+                        User user = new User(iduser, taikhoan, matkhau, ten, Server.HOST + img, sdt, diachi, email, gioitinh, ngaysinh, dataquyen, dataactive);
+                        data.add(user);
                     }
+                    // SET DATA HERE
+                    setdata(data);
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
@@ -122,8 +108,15 @@ public class AdminFragment_User extends Fragment {
     }
 
     private void setdata(ArrayList<User> data) {
-        AdapterUser adpater = new AdapterUser(data,getContext());
+        AdapterUser adpater = new AdapterUser(data, getContext());
         recycleview_user.setAdapter(adpater);
-        recycleview_user.setHasFixedSize(true);
+        recycleview_user.setHasFixedSize(false);
+    }
+
+    private String isSet(String s) {
+        if (s.equals("") || s.equals("null")) {
+            s = "Not Set";
+        }
+        return s;
     }
 }

@@ -7,6 +7,7 @@
     android:padding="8dp"
     android:orientation="vertical"
     tools:context=".adminUI.user.AdminFragment_User">
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

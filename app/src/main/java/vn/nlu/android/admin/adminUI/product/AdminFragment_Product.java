@@ -150,7 +150,7 @@ public class AdminFragment_Product extends Fragment {
     private void setdata(ArrayList<Product> data) {
         AdapterProduct adpater = new AdapterProduct(data, getContext());
         recycleview_product.setAdapter(adpater);
-        recycleview_product.setHasFixedSize(true);
+        recycleview_product.setHasFixedSize(false);
     }
     private String isSet(String s){
         if (s.equals("") || s.equals("null")) {

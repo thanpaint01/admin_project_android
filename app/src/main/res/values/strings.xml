@@ -10,6 +10,7 @@
     <string name="menu_home">Home</string>
     <string name="menu_user">User</string>
     <string name="menu_product">Product</string>
+    <string name="menu_tag">Tag</string>
 
     <string name="password">Password:</string>
     <string name="password_data">Password data</string>
@@ -24,6 +25,7 @@
     <string name="image_user">Image User</string>
     <string name="image_product">Image Product</string>
     <string name="id_user">ID User:</string>
+    <string name="id_ram">ID Ram:</string>
     <string name="id_product">ID Product:</string>
     <string name="id_data">Id data</string>
     <string name="name_user">Name:</string>
@@ -37,9 +39,10 @@
     <string name="active">Active:</string>
     <string name="active_data">Active data</string>
     <string name="btn_edit_user">Edit User</string>
-    <string name="edit_user">Edit User</string>
     <string name="btn_edit_product">Edit Product</string>
+    <string name="btn_edit">Edit</string>
     <string name="btn_delete_user">Delete User</string>
+    <string name="btn_delete">Delete</string>
     <string name="name">Name:</string>
     <string name="price">Price:</string>
     <string name="price_data">Price data</string>
@@ -63,6 +66,10 @@
     <string name="rom_data">Rom data</string>
     <string name="rom">Rom</string>
     <string name="ram_data">Ram data</string>
-    <string name="ram">Ram:</string>
+    <string name="ramRomBattery">Ram:</string>
+    <string name="edit_user">Edit User</string>
+    <string name="id_rom">ID Rom:</string>
+    <string name="id_pin">ID Pin:</string>
+    <string name="id_price">ID Price:</string>
 
 </resources>

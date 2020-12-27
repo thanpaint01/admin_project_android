@@ -23,4 +23,10 @@
         android:label="@string/menu_product"
         tools:layout="@layout/admin_fragment_product" />
 
+    <fragment
+        android:id="@+id/adminnav_tag"
+        android:name="vn.nlu.android.admin.adminUI.tag.AdminFragment_Tag"
+        android:label="@string/menu_tag"
+        tools:layout="@layout/admin_fragment_tag" />
+
 </navigation>
