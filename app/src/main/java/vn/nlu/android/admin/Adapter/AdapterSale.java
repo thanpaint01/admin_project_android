@@ -1,6 +1,7 @@
 package vn.nlu.android.admin.Adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,14 +14,26 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import vn.nlu.android.admin.R;
+import vn.nlu.android.admin.config.Server;
 import vn.nlu.android.admin.model.Sale;
+import vn.nlu.android.admin.model.Slide;
 
 public class AdapterSale extends RecyclerView.Adapter<AdapterSale.SaleAdapter> {
     ArrayList<Sale> data;
@@ -34,7 +47,7 @@ public class AdapterSale extends RecyclerView.Adapter<AdapterSale.SaleAdapter> {
     @NonNull
     @Override
     public SaleAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.admin_row_sale,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.admin_row_sale, parent, false);
         SaleAdapter adapter = new SaleAdapter(view);
         return new SaleAdapter(view);
     }
@@ -43,16 +56,16 @@ public class AdapterSale extends RecyclerView.Adapter<AdapterSale.SaleAdapter> {
     public void onBindViewHolder(@NonNull AdapterSale.SaleAdapter holder, int position) {
         Sale sale = data.get(position);
 
-        holder.textView_idsale.setText(""+ sale.getId());
-        holder.textView_salesale.setText(""+ sale.getSale()+"%");
-        holder.textView_daystartsale.setText(""+ sale.getNgaybdkm());
-        holder.textView_dayendsale.setText(""+ sale.getNgayktkm());
+        holder.textView_idsale.setText("" + sale.getId());
+        holder.textView_salesale.setText("" + sale.getSale() + "%");
+        holder.textView_daystartsale.setText("" + sale.getNgaybdkm());
+        holder.textView_dayendsale.setText("" + sale.getNgayktkm());
 
-        holder.textView_activesale.setText(""+ sale.getActive());
+        holder.textView_activesale.setText("" + sale.getActive());
 
 
         boolean isExpandable = data.get(position).isExpandable();
-        holder.expandable_data_sale.setVisibility(isExpandable? View.VISIBLE:View.GONE);
+        holder.expandable_data_sale.setVisibility(isExpandable ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -61,10 +74,10 @@ public class AdapterSale extends RecyclerView.Adapter<AdapterSale.SaleAdapter> {
     }
 
     public class SaleAdapter extends RecyclerView.ViewHolder {
-        TextView textView_idsale,textView_salesale,textView_daystartsale,textView_dayendsale,textView_activesale;
+        TextView textView_idsale, textView_salesale, textView_daystartsale, textView_dayendsale, textView_activesale;
         LinearLayout linear_layout_salerow;
         RelativeLayout expandable_data_sale;
-        Button button_editsale,button_deletesale;
+        Button button_editsale, button_deletesale;
 
         public SaleAdapter(@NonNull View itemView) {
             super(itemView);
@@ -95,20 +108,61 @@ public class AdapterSale extends RecyclerView.Adapter<AdapterSale.SaleAdapter> {
                     Bundle b = new Bundle();
                     b.putInt("id", sale.getId());
                     Intent i = new Intent();
-                    i.putExtra("data",b);
+                    i.putExtra("data", b);
                 }
             });
             button_deletesale.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Sale sale = data.get(getAdapterPosition());
-                    Bundle b = new Bundle();
-                    b.putInt("id", sale.getId());
-                    Intent i = new Intent();
-                    i.putExtra("data",b);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setTitle("Confirm");
+                    builder.setMessage("Are you sure?");
+                    builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            RequestQueue requestQueue = Volley.newRequestQueue(context);
+                            StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.deleterow + "khuyenmai", new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                }
+                            }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    doRemove(getAdapterPosition());
+                                }
+                            }) {
+                                @Override
+                                protected Map<String, String> getParams() throws AuthFailureError {
+                                    Map<String, String> params = new HashMap<>();
+                                    Sale sale = data.get(getAdapterPosition());
+                                    params.put("id", "" + sale.getId());
+                                    return params;
+                                }
+                            };
+                            requestQueue.add(stringRequest);
+
+                            dialog.dismiss();
+                        }
+                    });
+
+                    builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    AlertDialog alert = builder.create();
+                    alert.show();
                 }
             });
-
         }
     }
+
+    public void doRemove(int position) {
+        data.remove(position);
+        this.notifyItemRemoved(position);
+        this.notifyItemRangeChanged(position, data.size());
+    }
 }
+
+

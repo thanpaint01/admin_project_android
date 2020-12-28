@@ -14,6 +14,7 @@ public final class Server {
      public static String getallsale =HOST+"khuyenmai.php";
      public static String getallslide =HOST+"slide.php";
      public static String getallcomment =HOST+"binhluan.php";
+     public static String deleterow =HOST+"deleterow.php?table=";
 
 
 }
