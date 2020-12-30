@@ -1,4 +1,4 @@
-package vn.nlu.android.admin.adminUI.adminhome;
+package vn.nlu.android.admin.adminUI_Fragment.adminhome;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

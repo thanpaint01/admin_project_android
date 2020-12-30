@@ -19,7 +19,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import vn.nlu.android.admin.Activity.product.Decription;
 import vn.nlu.android.admin.R;
+import vn.nlu.android.admin.adminUI_Fragment.user.AdminFragment_User;
 import vn.nlu.android.admin.model.Product;
 
 public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ProductAdapter> {
@@ -141,9 +143,18 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ProductA
                 public void onClick(View v) {
                     Product p = data.get(getAdapterPosition());
                     Bundle b = new Bundle();
-                    b.putInt("id",p.getIdsp());
-                    Intent i = new Intent();
+                    b.putString("tieude1",p.getTieude1());
+                    b.putString("tieude2",p.getTieude2());
+                    b.putString("tieude3",p.getTieude3());
+                    b.putString("chitiet1",p.getChitiet1());
+                    b.putString("chitiet2",p.getChitiet2());
+                    b.putString("chitiet3",p.getChitiet3());
+                    b.putString("anh1",p.getAnh1());
+                    b.putString("anh2",p.getAnh2());
+                    b.putString("anh3",p.getAnh3());
+                    Intent i = new Intent(context, Decription.class);
                     i.putExtra("data",b);
+                    context.startActivity(i);
                 }
             });
             button_editproduct.setOnClickListener(new View.OnClickListener() {

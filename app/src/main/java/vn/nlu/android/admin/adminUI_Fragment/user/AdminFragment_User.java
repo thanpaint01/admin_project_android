@@ -1,6 +1,9 @@
-package vn.nlu.android.admin.adminUI.user;
+package vn.nlu.android.admin.adminUI_Fragment.user;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -119,5 +122,6 @@ public class AdminFragment_User extends Fragment {
         }
         return s;
     }
+
 
 }

@@ -1,4 +1,4 @@
-package vn.nlu.android.admin.adminUI.product;
+package vn.nlu.android.admin.adminUI_Fragment.product;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -115,14 +115,25 @@ public class AdminFragment_Product extends Fragment {
                         if (tinhtrang.equals("") || tinhtrang.equals("null")) {
                             datatinhtrang = 0;
                         } else if (tinhtrang != null) datatinhtrang = Integer.parseInt(tinhtrang);
-
                         if (active.equals("") || active.equals("null")) {
                             dataactive = 1;
                         } else if (active != null) dataactive = Integer.parseInt(active);
+                        String tieude1 = jsonObject.getString("tieude1");
+                        String tieude2 = jsonObject.getString("tieude2");
+                        String tieude3 = jsonObject.getString("tieude3");
+                        String chitiet1 = jsonObject.getString("chitiet1");
+                        String chitiet2 = jsonObject.getString("chitiet2");
+                        String chitiet3 = jsonObject.getString("chitiet3");
+                        String anh1 = jsonObject.getString("anh1");
+                        String anh2 = jsonObject.getString("anh2");
+                        String anh3 = jsonObject.getString("anh3");
+
 
                         Product p = new Product(idsp, Server.HOST+img, ten, tenhang, sale, gia, soluong,
                                  ram,  rom,  pin,  baohanh,  Server.HOST+img01,  Server.HOST+img02,
-                                Server.HOST+img03,  Server.HOST+img04,  kichthuoc,  cameratruoc,  camerasau,  datatinhtrang,  dataactive);
+                                Server.HOST+img03,  Server.HOST+img04,  kichthuoc,  cameratruoc,  camerasau,
+                                datatinhtrang,  dataactive, tieude1,tieude2,tieude3,chitiet1,chitiet2,chitiet3,
+                                Server.HOST+anh1,Server.HOST+anh2,Server.HOST+anh3);
                         data.add(p);
                     }
                     // SET DATA HERE

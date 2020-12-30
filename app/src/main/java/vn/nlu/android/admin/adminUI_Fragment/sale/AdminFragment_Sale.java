@@ -1,4 +1,4 @@
-package vn.nlu.android.admin.adminUI.sale;
+package vn.nlu.android.admin.adminUI_Fragment.sale;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

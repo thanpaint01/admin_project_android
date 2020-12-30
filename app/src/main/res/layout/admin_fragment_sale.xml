@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="8dp"
     android:orientation="vertical"
-    tools:context=".adminUI.sale.AdminFragment_Sale">
+    tools:context=".adminUI_Fragment.sale.AdminFragment_Sale">
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

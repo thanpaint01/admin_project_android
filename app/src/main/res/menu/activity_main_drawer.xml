@@ -40,5 +40,10 @@
             android:id="@+id/adminnav_comment"
             android:icon="@drawable/ic_baseline_comment_24"
             android:title="Comment" />
+
+        <item
+            android:id="@+id/adminnav_order"
+            android:icon="@drawable/ic_baseline_shopping_cart_24"
+            android:title="Order" />
     </group>
 </menu>

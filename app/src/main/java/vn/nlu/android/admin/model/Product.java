@@ -29,6 +29,16 @@ public class Product {
     private int active;
     private int tinhtrang;
     private boolean expandable;
+    private String tieude1;
+    private String tieude2;
+    private String tieude3;
+    private String chitiet1;
+    private String chitiet2;
+    private String chitiet3;
+    private String anh1;
+    private String anh2;
+    private String anh3;
+
 
 
     public int getIdsp() {
@@ -223,34 +233,46 @@ public class Product {
         this.tinhtrang = tinhtrang;
     }
 
-    public Product(int idsp, String img, String tensp, int idkm, int tinhtrang, double gia) {
-        this.idsp = idsp;
-        this.img = img;
-        this.tensp = tensp;
-        this.idkm = idkm;
-        this.tinhtrang = tinhtrang;
-        this.gia = gia;
+    public String getTieude1() {
+        return tieude1;
     }
 
-    public Product(int idsp, String img, String tensp, double gia) {
-        this.idsp = idsp;
-        this.img = img;
-        this.tensp = tensp;
-        this.gia = gia;
+    public String getTieude2() {
+        return tieude2;
     }
 
-    public Product(int idsp, String img, String tensp, double gia, int active, int tinhtrang) {
-        this.idsp = idsp;
-        this.img = img;
-        this.tensp = tensp;
-        this.gia = gia;
-        this.active = active;
-        this.tinhtrang = tinhtrang;
+    public String getTieude3() {
+        return tieude3;
+    }
+
+    public String getChitiet1() {
+        return chitiet1;
+    }
+
+    public String getChitiet2() {
+        return chitiet2;
+    }
+
+    public String getChitiet3() {
+        return chitiet3;
+    }
+
+    public String getAnh1() {
+        return anh1;
+    }
+
+    public String getAnh2() {
+        return anh2;
+    }
+
+    public String getAnh3() {
+        return anh3;
     }
 
     public Product(int idsp, String img, String tensp, String tenhang, String sale, String gia, String soluong,
                    String ram, String rom, String pin, String baohanh, String img01, String img02,
-                   String img03, String img04, String kichthuoc, String cameraTruoc, String cameraSau, int active, int tinhtrang) {
+                   String img03, String img04, String kichthuoc, String cameraTruoc, String cameraSau, int active, int tinhtrang,
+                   String tieude1,String tieude2,String tieude3,String chitiet1,String chitiet2,String chitiet3,String anh1,String anh2,String anh3) {
         this.idsp = idsp;
         this.img = img;
         this.tensp = tensp;
@@ -271,6 +293,15 @@ public class Product {
         this.cameraSau = cameraSau;
         this.active = active;
         this.tinhtrang = tinhtrang;
+        this.tieude1 = tieude1;
+        this.tieude2 = tieude2;
+        this.tieude3 = tieude3;
+        this.chitiet1 = chitiet1;
+        this.chitiet2 = chitiet3;
+        this.chitiet3 = chitiet3;
+        this.anh1 = anh1;
+        this.anh2 = anh2;
+        this.anh3 = anh3;
         this.expandable = false;
     }
 

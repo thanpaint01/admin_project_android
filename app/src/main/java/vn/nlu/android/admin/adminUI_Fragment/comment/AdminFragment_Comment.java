@@ -1,4 +1,4 @@
-package vn.nlu.android.admin.adminUI.slide;
+package vn.nlu.android.admin.adminUI_Fragment.comment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -25,48 +25,48 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import vn.nlu.android.admin.Adapter.AdapterSlide;
+import vn.nlu.android.admin.Adapter.AdapterComment;
 import vn.nlu.android.admin.R;
 import vn.nlu.android.admin.config.Server;
-import vn.nlu.android.admin.model.Slide;
+import vn.nlu.android.admin.model.Comment;
 
-public class AdminFragment_Slide extends Fragment {
+public class AdminFragment_Comment extends Fragment {
 
-    private RecyclerView recycleview_slide;
-    private ArrayList<Slide> data = new ArrayList<Slide>();
+    private RecyclerView recycleview_comment;
+    private ArrayList<Comment> data = new ArrayList<Comment>();
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.admin_fragment_slide, container, false);
-        recycleview_slide = root.findViewById(R.id.recycleview_slide);
+        View root = inflater.inflate(R.layout.admin_fragment_comment, container, false);
+        recycleview_comment = root.findViewById(R.id.recycleview_comment);
         loadData();
         return root;
     }
 
     public void loadData() {
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.getallslide, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.getallcomment, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONArray jsonArr = new JSONArray(response);
                     for (int i = 0; i < jsonArr.length(); i++) {
                         JSONObject jsonObject = jsonArr.getJSONObject(i);
-                        int id = jsonObject.getInt("idslide");
-
-                        String img = jsonObject.getString("srcslide");
-                        if (img.equals("") || img.equals("null")) {
-                            img = "img/user/No-Image.png";
-                        }
-
+                        int id = jsonObject.getInt("idbinhluan");
+                        int iduser = jsonObject.getInt("iduser");
+                        String productname = jsonObject.getString("tensp");
                         String active = jsonObject.getString("active");
+                        String datacomment = jsonObject.getString("noidung");
 
                         int dataactive = 0;
 
                         if (active.equals("") || active.equals("null")) {
                             dataactive = 1;
                         } else if (active != null) dataactive = Integer.parseInt(active);
-                        Slide slide = new Slide(id,Server.HOST + img, dataactive);
-                        data.add(slide);
+
+
+
+                        Comment comment = new Comment(id, iduser,productname,datacomment, dataactive);
+                        data.add(comment);
                     }
                     // SET DATA HERE
                     setdata(data);
@@ -89,9 +89,9 @@ public class AdminFragment_Slide extends Fragment {
         requestQueue.add(stringRequest);
     }
 
-    private void setdata(ArrayList<Slide> data) {
-        AdapterSlide adpater = new AdapterSlide(data, getContext());
-        recycleview_slide.setAdapter(adpater);
-        recycleview_slide.setHasFixedSize(false);
+    private void setdata(ArrayList<Comment> data) {
+        AdapterComment adpater = new AdapterComment(data, getContext());
+        recycleview_comment.setAdapter(adpater);
+        recycleview_comment.setHasFixedSize(false);
     }
 }

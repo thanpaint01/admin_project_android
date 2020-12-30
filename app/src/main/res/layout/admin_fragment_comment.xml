@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="8dp"
     android:orientation="vertical"
-    tools:context=".adminUI.comment.AdminFragment_comment">
+    tools:context=".adminUI_Fragment.comment.AdminFragment_comment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

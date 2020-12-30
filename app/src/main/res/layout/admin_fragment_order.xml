@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     android:padding="8dp"
     android:orientation="vertical"
-    tools:context=".adminUI_Fragment.slide.AdminFragment_Slide">
+    tools:context=".adminUI_Fragment.order.AdminFragment_Order">
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/recycleview_slide"
+        android:id="@+id/recycleview_order"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
 

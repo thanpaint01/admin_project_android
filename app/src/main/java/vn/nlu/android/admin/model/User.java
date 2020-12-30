@@ -2,6 +2,8 @@
 
 package vn.nlu.android.admin.model;
 
+import vn.nlu.android.admin.config.Server;
+
 public class User {
     private int iduser;
     private String taikhoan;
@@ -161,5 +163,9 @@ public class User {
                 " quyen : " + quyen +
                 " active : " + active;
     }
+    public String removeHostImg(){
+        return img.replace(Server.HOST,"");
+    }
+
 }
 

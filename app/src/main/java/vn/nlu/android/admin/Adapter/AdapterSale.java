@@ -124,11 +124,13 @@ public class AdapterSale extends RecyclerView.Adapter<AdapterSale.SaleAdapter> {
                             StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.deleterow + "khuyenmai", new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
+                                    if(response.equals("success"))
+                                    doRemove(getAdapterPosition());
+
                                 }
                             }, new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    doRemove(getAdapterPosition());
                                 }
                             }) {
                                 @Override

@@ -7,50 +7,56 @@
 
     <fragment
         android:id="@+id/adminnav_home"
-        android:name="vn.nlu.android.admin.adminUI.adminhome.HomeFragment"
+        android:name="vn.nlu.android.admin.adminUI_Fragment.adminhome.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/admin_fragment_home" />
 
     <fragment
         android:id="@+id/adminnav_user"
-        android:name="vn.nlu.android.admin.adminUI.user.AdminFragment_User"
+        android:name="vn.nlu.android.admin.adminUI_Fragment.user.AdminFragment_User"
         android:label="@string/menu_user"
         tools:layout="@layout/admin_fragment_user" />
 
     <fragment
         android:id="@+id/adminnav_product"
-        android:name="vn.nlu.android.admin.adminUI.product.AdminFragment_Product"
+        android:name="vn.nlu.android.admin.adminUI_Fragment.product.AdminFragment_Product"
         android:label="@string/menu_product"
         tools:layout="@layout/admin_fragment_product" />
 
     <fragment
         android:id="@+id/adminnav_tag"
-        android:name="vn.nlu.android.admin.adminUI.tag.AdminFragment_Tag"
+        android:name="vn.nlu.android.admin.adminUI_Fragment.tag.AdminFragment_Tag"
         android:label="@string/menu_tag"
         tools:layout="@layout/admin_fragment_tag" />
 
     <fragment
         android:id="@+id/adminnav_brand"
-        android:name="vn.nlu.android.admin.adminUI.brand.AdminFragment_Brand"
+        android:name="vn.nlu.android.admin.adminUI_Fragment.brand.AdminFragment_Brand"
         android:label="@string/menu_brand"
         tools:layout="@layout/admin_fragment_brand" />
 
     <fragment
         android:id="@+id/adminnav_sale"
-        android:name="vn.nlu.android.admin.adminUI.sale.AdminFragment_Sale"
+        android:name="vn.nlu.android.admin.adminUI_Fragment.sale.AdminFragment_Sale"
         android:label="@string/menu_sale"
         tools:layout="@layout/admin_fragment_sale" />
 
     <fragment
         android:id="@+id/adminnav_slide"
-        android:name="vn.nlu.android.admin.adminUI.slide.AdminFragment_Slide"
+        android:name="vn.nlu.android.admin.adminUI_Fragment.slide.AdminFragment_Slide"
         android:label="@string/menu_slide"
         tools:layout="@layout/admin_fragment_slide" />
 
     <fragment
         android:id="@+id/adminnav_comment"
-        android:name="vn.nlu.android.admin.adminUI.comment.AdminFragment_Comment"
+        android:name="vn.nlu.android.admin.adminUI_Fragment.comment.AdminFragment_Comment"
         android:label="@string/menu_comment"
         tools:layout="@layout/admin_fragment_comment" />
+
+    <fragment
+        android:id="@+id/adminnav_order"
+        android:name="vn.nlu.android.admin.adminUI_Fragment.order.AdminFragment_Order"
+        android:label="@string/menu_order"
+        tools:layout="@layout/admin_fragment_order" />
 
 </navigation>

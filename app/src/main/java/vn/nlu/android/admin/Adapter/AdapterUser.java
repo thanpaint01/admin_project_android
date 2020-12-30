@@ -24,21 +24,17 @@ import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import vn.nlu.android.admin.Activity.user.Edit;
+import vn.nlu.android.admin.Application;
 import vn.nlu.android.admin.R;
-import vn.nlu.android.admin.adminUI.user.AdminFragment_User;
+import vn.nlu.android.admin.adminUI_Fragment.user.AdminFragment_User;
 import vn.nlu.android.admin.config.Server;
-import vn.nlu.android.admin.model.Comment;
 import vn.nlu.android.admin.model.User;
 
 public class AdapterUser extends RecyclerView.Adapter<AdapterUser.UserAdapter> {
@@ -73,8 +69,10 @@ public class AdapterUser extends RecyclerView.Adapter<AdapterUser.UserAdapter> {
         holder.textView_passworduser.setText(u.getMatkhau());
         holder.textView_birthdayruser.setText(u.getNgaysinh());
         holder.textView_genderuser.setText(u.getGioitinh());
-        holder.textView_quyenuser.setText("" + u.getQuyen());
-        holder.textView_activeuser.setText("" + u.getActive());
+        String quyen =  u.getQuyen()==1 ?"User":"Admin";
+        holder.textView_quyenuser.setText(quyen);
+        String active =  u.getActive()==1 ?"Active":"Ban";
+        holder.textView_activeuser.setText(active);
 
         Picasso.get().load(u.getImg())
                 .placeholder(R.drawable.ic_baseline_image_24)
@@ -132,15 +130,19 @@ public class AdapterUser extends RecyclerView.Adapter<AdapterUser.UserAdapter> {
                     User u = data.get(getAdapterPosition());
                     Bundle b = new Bundle();
                     b.putString("name", u.getTen());
+                    b.putInt("iduser", u.getIduser());
+                    b.putString("imgurl", u.removeHostImg());
+                    b.putString("username", u.getTaikhoan());
                     b.putString("mail", u.getEmail());
                     b.putString("phone", u.getSdt());
                     b.putString("address", u.getDiachi());
                     b.putString("dob", u.getNgaysinh());
                     b.putString("gender", u.getGioitinh());
-                    b.putInt("permisson", u.getQuyen());
+                    b.putInt("permission", u.getQuyen());
                     b.putInt("active", u.getActive());
-                    Intent i = new Intent();
+                    Intent i = new Intent(context, Edit.class);
                     i.putExtra("data", b);
+                    context.startActivity(i);
                 }
             });
             button_deleteuser.setOnClickListener(new View.OnClickListener() {
@@ -156,11 +158,13 @@ public class AdapterUser extends RecyclerView.Adapter<AdapterUser.UserAdapter> {
                             StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.deleterow + "nguoidung", new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
+                                    if(response.equals("success"))
+                                        doRemove(getAdapterPosition());
                                 }
                             }, new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    doRemove(getAdapterPosition());
+
                                 }
                             }) {
                                 @Override
@@ -195,4 +199,23 @@ public class AdapterUser extends RecyclerView.Adapter<AdapterUser.UserAdapter> {
         this.notifyItemRemoved(position);
         this.notifyItemRangeChanged(position, data.size());
     }
+
+//    public void changedataAfterEdit(int position) {
+//        User user = data.get(position);
+//        user.setTen(Application.getPrefranceData("edit-name"));
+//        user.setEmail(Application.getPrefranceData("edit-email"));
+//        user.setSdt(Application.getPrefranceData("edit-phone"));
+//        user.setDiachi(Application.getPrefranceData("edit-address"));
+//        user.setTaikhoan(Application.getPrefranceData("edit-username"));
+//        user.setMatkhau(Application.getPrefranceData("edit-password"));
+//        user.setNgaysinh(Application.getPrefranceData("edit-birthday"));
+//        user.setGioitinh(Application.getPrefranceData("edit-gender"));
+//        user.setQuyen(Application.getPrefranceDataInt("edit-permisson"));
+//        user.setActive(Application.getPrefranceDataInt("edit-active"));
+//
+//        doRemove(position);
+//        data.add(position,user);
+//        this.notifyItemChanged(position,user);
+//    }
+
 }
