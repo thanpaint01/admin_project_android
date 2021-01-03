@@ -279,7 +279,7 @@ public class Product {
         this.tenhang = tenhang;
         this.sale = Integer.parseInt(sale);
         this.gia = Double.parseDouble(gia);
-        this.soluong = Integer.parseInt(sale);
+        this.soluong = Integer.parseInt(soluong);
         this.ram = ram;
         this.rom = rom;
         this.pin = pin;

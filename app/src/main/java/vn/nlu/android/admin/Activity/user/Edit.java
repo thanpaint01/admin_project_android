@@ -1,6 +1,5 @@
 package vn.nlu.android.admin.Activity.user;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -30,7 +29,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import vn.nlu.android.admin.Application;
 import vn.nlu.android.admin.R;
 import vn.nlu.android.admin.config.Server;
 

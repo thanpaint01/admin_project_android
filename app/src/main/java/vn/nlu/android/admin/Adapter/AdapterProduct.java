@@ -20,6 +20,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import vn.nlu.android.admin.Activity.product.Decription;
+import vn.nlu.android.admin.Activity.product.Edit;
 import vn.nlu.android.admin.R;
 import vn.nlu.android.admin.adminUI_Fragment.user.AdminFragment_User;
 import vn.nlu.android.admin.model.Product;
@@ -163,8 +164,38 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ProductA
                     Product p = data.get(getAdapterPosition());
                     Bundle b = new Bundle();
                     b.putInt("id",p.getIdsp());
-                    Intent i = new Intent();
+                    b.putString("img",p.getImg());
+                    b.putString("ten",p.getTensp());
+                    b.putString("hang",p.getTenhang());
+                    b.putString("gia",""+p.getGia());
+                    b.putString("soluong",""+p.getSoluong());
+                    b.putString("ram",p.getRam());
+                    b.putString("rom",p.getRom());
+                    b.putString("pin",p.getPin());
+                    b.putString("baohanh",""+p.getBaohanh());
+                    b.putInt("sale",p.getSale());
+                    b.putString("img01",p.getImg01());
+                    b.putString("img02",p.getImg02());
+                    b.putString("img03",p.getImg03());
+                    b.putString("img04",p.getImg04());
+                    b.putString("kichthuoc",p.getKichthuoc());
+                    b.putString("cameratruoc",p.getCameraTruoc());
+                    b.putString("camerasau",p.getCameraSau());
+                    b.putString("active",""+p.getActive());
+                    b.putInt("tinhtrang",p.getTinhtrang());
+
+                    b.putString("tieude1",p.getTieude1());
+                    b.putString("tieude2",p.getTieude2());
+                    b.putString("tieude3",p.getTieude3());
+                    b.putString("chitiet1",p.getChitiet1());
+                    b.putString("chitiet2",p.getChitiet2());
+                    b.putString("chitiet3",p.getChitiet3());
+                    b.putString("anh1",p.getAnh1());
+                    b.putString("anh2",p.getAnh2());
+                    b.putString("anh3",p.getAnh3());
+                    Intent i = new Intent(context, Edit.class);
                     i.putExtra("data",b);
+                    context.startActivity(i);
                 }
             });
         }

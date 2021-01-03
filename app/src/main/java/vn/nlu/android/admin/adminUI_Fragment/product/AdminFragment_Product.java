@@ -1,5 +1,7 @@
 package vn.nlu.android.admin.adminUI_Fragment.product;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,6 +28,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import vn.nlu.android.admin.Activity.product.Add;
 import vn.nlu.android.admin.Adapter.AdapterProduct;
 import vn.nlu.android.admin.R;
 import vn.nlu.android.admin.config.Server;
@@ -40,6 +44,15 @@ public class AdminFragment_Product extends Fragment {
         View root = inflater.inflate(R.layout.admin_fragment_product, container, false);
         recycleview_product = root.findViewById(R.id.recycleview_product);
         loadData();
+        FloatingActionButton fab = root.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context context = root.getContext();
+                Intent i = new Intent(context, Add.class);
+                context.startActivity(i);
+            }
+        });
         return root;
     }
 
@@ -132,7 +145,7 @@ public class AdminFragment_Product extends Fragment {
                         Product p = new Product(idsp, Server.HOST+img, ten, tenhang, sale, gia, soluong,
                                  ram,  rom,  pin,  baohanh,  Server.HOST+img01,  Server.HOST+img02,
                                 Server.HOST+img03,  Server.HOST+img04,  kichthuoc,  cameratruoc,  camerasau,
-                                datatinhtrang,  dataactive, tieude1,tieude2,tieude3,chitiet1,chitiet2,chitiet3,
+                                dataactive, datatinhtrang , tieude1,tieude2,tieude3,chitiet1,chitiet2,chitiet3,
                                 Server.HOST+anh1,Server.HOST+anh2,Server.HOST+anh3);
                         data.add(p);
                     }

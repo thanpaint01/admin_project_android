@@ -102,22 +102,4 @@ public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.OrderAdapter
         this.notifyItemRangeChanged(position, data.size());
     }
 
-//    public void changedataAfterEdit(int position) {
-//        User user = data.get(position);
-//        user.setTen(Application.getPrefranceData("edit-name"));
-//        user.setEmail(Application.getPrefranceData("edit-email"));
-//        user.setSdt(Application.getPrefranceData("edit-phone"));
-//        user.setDiachi(Application.getPrefranceData("edit-address"));
-//        user.setTaikhoan(Application.getPrefranceData("edit-username"));
-//        user.setMatkhau(Application.getPrefranceData("edit-password"));
-//        user.setNgaysinh(Application.getPrefranceData("edit-birthday"));
-//        user.setGioitinh(Application.getPrefranceData("edit-gender"));
-//        user.setQuyen(Application.getPrefranceDataInt("edit-permisson"));
-//        user.setActive(Application.getPrefranceDataInt("edit-active"));
-//
-//        doRemove(position);
-//        data.add(position,user);
-//        this.notifyItemChanged(position,user);
-//    }
-
 }

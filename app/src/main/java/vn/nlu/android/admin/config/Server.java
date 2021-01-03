@@ -16,6 +16,7 @@ public final class Server {
      public static String getallcomment =HOST+"binhluan.php";
      public static String deleterow =HOST+"deleterow.php?table=";
      public static String updaterow =HOST+"updaterow.php?table=";
+     public static String addrow =HOST+"addrow.php?table=";
      public static String admin_donhang =HOST+"admin_donhang.php";
 
 

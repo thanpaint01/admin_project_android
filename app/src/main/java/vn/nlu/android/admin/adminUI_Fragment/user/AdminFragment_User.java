@@ -1,6 +1,7 @@
 package vn.nlu.android.admin.adminUI_Fragment.user;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,6 +30,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import vn.nlu.android.admin.Activity.user.Add;
 import vn.nlu.android.admin.Adapter.AdapterUser;
 import vn.nlu.android.admin.R;
 import vn.nlu.android.admin.config.Server;
@@ -42,6 +45,15 @@ public class AdminFragment_User extends Fragment {
         View root = inflater.inflate(R.layout.admin_fragment_user, container, false);
         recycleview_user = root.findViewById(R.id.recycleview_user);
         loadData();
+        FloatingActionButton fab = root.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context context = root.getContext();
+                Intent i = new Intent(context, Add.class);
+                context.startActivity(i);
+            }
+        });
         return root;
     }
 
