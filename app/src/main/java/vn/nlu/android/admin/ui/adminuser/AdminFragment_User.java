@@ -51,7 +51,7 @@ public class AdminFragment_User extends Fragment {
         // setup the table
         mTableLayout = (TableLayout) root.findViewById(R.id.admintable_user);
         mTableLayout.setStretchAllColumns(true);
-        loadData();
+//        loadData();
         return root;
     }
 
