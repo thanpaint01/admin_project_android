@@ -37,7 +37,7 @@ public class AdminFragment_Slide extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.admin_fragment_slide, container, false);
-        recycleview_slide = root.findViewById(R.id.recycleview_slide);
+        recycleview_slide = root.findViewById(R.id.recycleview_slidedetail);
         loadData();
         return root;
     }

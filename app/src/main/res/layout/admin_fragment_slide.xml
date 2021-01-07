@@ -11,7 +11,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/recycleview_slide"
+        android:id="@+id/recycleview_slidedetail"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

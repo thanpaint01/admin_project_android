@@ -3,9 +3,9 @@ package vn.nlu.android.admin.model;
 public class OrderData {
     private int idchitiet;
     private int iddonhang;
-    private String idsp,soluong,tamtinh,giamgia,tongcong,gia;
+    private String idsp,soluong,tamtinh,giamgia,tongcong,gia,img,tensp;
 
-    public OrderData(int idchitiet, int iddonhang, String idsp, String soluong, String tamtinh, String giamgia, String tongcong, String gia) {
+    public OrderData(int idchitiet, int iddonhang, String idsp, String soluong, String tamtinh, String giamgia, String tongcong, String gia,String img,String tensp) {
         this.idchitiet = idchitiet;
         this.iddonhang = iddonhang;
         this.idsp = idsp;
@@ -14,6 +14,24 @@ public class OrderData {
         this.giamgia = giamgia;
         this.tongcong = tongcong;
         this.gia = gia;
+        this.img = img;
+        this.tensp = tensp;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getTensp() {
+        return tensp;
+    }
+
+    public void setTensp(String tensp) {
+        this.tensp = tensp;
     }
 
     public int getIdchitiet() {

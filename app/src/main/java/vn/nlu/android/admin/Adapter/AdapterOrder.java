@@ -1,44 +1,30 @@
 package vn.nlu.android.admin.Adapter;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import vn.nlu.android.admin.R;
 import vn.nlu.android.admin.config.Server;
 import vn.nlu.android.admin.model.Order;
-import vn.nlu.android.admin.model.OrderData;
 
 public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.OrderAdapter> {
     ArrayList<Order> data;
     Context context;
-    RecyclerView recyclerView;
+    private RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
 
     public AdapterOrder(ArrayList<Order> data, Context context) {
         this.data = data;
@@ -49,21 +35,34 @@ public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.OrderAdapter
     @Override
     public OrderAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.admin_row_order, parent, false);
-        OrderAdapter adapter = new OrderAdapter(view);
-        recyclerView = view.findViewById(R.id.recycleview_order);
         return new OrderAdapter(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull AdapterOrder.OrderAdapter holder, int position) {
         Order order = data.get(position);
-        holder.textshowtext.setText(order.toString());
-        ArrayList<OrderData> orderData = order.getData();
 
-        holder.textshowtext2.setText(orderData.toString());
+        holder.textView_idorder.setText(""+ order.getIddonhang());
+        holder.textView_numdetaildata.setText(""+ order.getData().size());
+        holder.textView_datecreatedata.setText(""+ order.getNgaytao());
+        holder.textView_paymethoddata.setText(""+ order.getHinhthuctt());
+        holder.textView_orderusernamedata.setText(""+ order.getTen());
+        holder.textView_orderuserphonedata.setText(""+ order.getSdt());
+        holder.textView_orderlocationdata.setText(""+ order.getDiachi());
 
+        Picasso.get().load(Server.HOST+ order.getImg())
+                .placeholder(R.drawable.ic_baseline_image_24)
+                .error(R.drawable.ic_baseline_broken_image_24)
+                .into(holder.imgViewAItemCartOrder);
         boolean isExpandable = data.get(position).isExpandable();
         holder.expandable_data_order.setVisibility(isExpandable ? View.VISIBLE : View.GONE);
+
+
+        // Create sub item view adapter
+        AdapterOrderData adapterOrderData = new AdapterOrderData(order.getData());
+        holder.recycleview_orderdata.setAdapter(adapterOrderData);
+        holder.recycleview_orderdata.setRecycledViewPool(viewPool);
+
     }
 
     @Override
@@ -72,20 +71,29 @@ public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.OrderAdapter
     }
 
     public class OrderAdapter extends RecyclerView.ViewHolder {
-        TextView textshowtext, textshowtext2;
+        TextView textView_idorder, textView_numdetaildata,textView_datecreatedata,textView_paymethoddata,textView_orderusernamedata
+                ,textView_orderuserphonedata,textView_orderlocationdata;
         RelativeLayout expandable_data_order;
-        LinearLayout linear_layout_orderrow;
+        RecyclerView recycleview_orderdata;
+        ImageView imgViewAItemCartOrder;
+        LinearLayout lineCart;
 
         public OrderAdapter(@NonNull View itemView) {
             super(itemView);
-            textshowtext = itemView.findViewById(R.id.textshowtext);
-            textshowtext2 = itemView.findViewById(R.id.textshowtext2);
+            recycleview_orderdata = itemView.findViewById(R.id.recycleview_orderdata);
+            System.out.println("dask" + recycleview_orderdata);
+            textView_idorder = itemView.findViewById(R.id.textView_idorder);
+            textView_numdetaildata = itemView.findViewById(R.id.textView_numdetaildata);
+            textView_datecreatedata = itemView.findViewById(R.id.textView_datecreatedata);
+            textView_paymethoddata = itemView.findViewById(R.id.textView_paymethoddata);
+            textView_orderusernamedata = itemView.findViewById(R.id.textView_orderusernamedata);
+            textView_orderuserphonedata = itemView.findViewById(R.id.textView_orderuserphonedata);
+            textView_orderlocationdata = itemView.findViewById(R.id.textView_orderlocationdata);
+            imgViewAItemCartOrder = itemView.findViewById(R.id.imgViewAItemCartOrder);
 
-            linear_layout_orderrow = itemView.findViewById(R.id.linear_layout_orderrow);
+            lineCart = itemView.findViewById(R.id.lineCart);
             expandable_data_order = itemView.findViewById(R.id.expandable_data_order);
-
-
-            linear_layout_orderrow.setOnClickListener(new View.OnClickListener() {
+            lineCart.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Order order = data.get(getAdapterPosition());
@@ -93,6 +101,8 @@ public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.OrderAdapter
                     notifyItemChanged(getAdapterPosition());
                 }
             });
+
+
         }
     }
 

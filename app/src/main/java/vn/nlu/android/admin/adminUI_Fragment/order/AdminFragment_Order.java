@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
@@ -41,6 +42,7 @@ public class AdminFragment_Order extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.admin_fragment_order, container, false);
         recycleview_order = root.findViewById(R.id.recycleview_order);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         loadData();
         return root;
     }
@@ -67,6 +69,7 @@ public class AdminFragment_Order extends Fragment {
                         String hinhthuctt = jsonObject.getString("hinhthuctt");
                         String ten = jsonObject.getString("ten");
                         String sdt = jsonObject.getString("sdt");
+                        String img = jsonObject.getString("img");
 
                         int idchitiet = jsonObject.getInt("idchitiet");
                         String idsp = jsonObject.getString("idsp");
@@ -75,8 +78,9 @@ public class AdminFragment_Order extends Fragment {
                         String giamgia = jsonObject.getString("giamgia");
                         String tongcong = jsonObject.getString("tongcong");
                         String gia = jsonObject.getString("gia");
+                        String tensp = jsonObject.getString("tensp");
 
-                        OrderData orderData = new OrderData(idchitiet,iddonhang, idsp, soluong, tamtinh, giamgia, tongcong, gia);
+                        OrderData orderData = new OrderData(idchitiet,iddonhang, idsp, soluong, tamtinh, giamgia, tongcong, gia,img,tensp);
                         Order order;
 
                         if (checkexistIDdonhang.contains(iddonhang)) {
@@ -84,12 +88,11 @@ public class AdminFragment_Order extends Fragment {
                             back++;
                             Integer index = saveID.get(iddonhang);
                             order = data.get(index);
-                            System.out.println("Index here " + index);
                             isExist = true;
 
                         } else {
                             // not exist
-                            order = new Order(iddonhang, iduser, idtinhtrang, ngaytao, diachi, hinhthuctt, ten, sdt);
+                            order = new Order(iddonhang, iduser, idtinhtrang, ngaytao, diachi, hinhthuctt, ten, sdt,img);
                             saveID.put(iddonhang, i - back);
                             checkexistIDdonhang.add(iddonhang);
                         }
@@ -125,16 +128,9 @@ public class AdminFragment_Order extends Fragment {
     }
 
     private void setdata(ArrayList<Order> data) {
-        AdapterOrder adpater = new AdapterOrder(data, getContext());
+        AdapterOrder adpater = new AdapterOrder(data,getContext());
         recycleview_order.setAdapter(adpater);
         recycleview_order.setHasFixedSize(false);
-    }
-
-    private String isSet(String s) {
-        if (s.equals("") || s.equals("null")) {
-            s = "Not Set";
-        }
-        return s;
     }
 
 
