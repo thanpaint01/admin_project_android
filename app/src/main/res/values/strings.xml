@@ -92,5 +92,6 @@
     <string name="productname_data">Product Name data</string>
     <string name="productname_comment">Product Name:</string>
     <string name="menu_order">Order</string>
+    <string name="menu_order2">Order 2</string>
 
 </resources>

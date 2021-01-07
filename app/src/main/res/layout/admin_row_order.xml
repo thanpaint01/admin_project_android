@@ -227,23 +227,23 @@
 
 
                 <Button
-                    android:id="@+id/button_editorder"
+                    android:id="@+id/button_order1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:layout_marginEnd="4dp"
                     android:layout_weight="1"
-                    android:text="@string/btn_edit"
+                    android:text="BTN 1"
                     tools:ignore="ButtonStyle" />
 
                 <Button
-                    android:id="@+id/button_deleteorder"
+                    android:id="@+id/button_order2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="3dp"
                     android:layout_weight="1"
-                    android:text="@string/btn_delete"
+                    android:text="BTN 2"
                     tools:ignore="ButtonStyle" />
             </LinearLayout>
 

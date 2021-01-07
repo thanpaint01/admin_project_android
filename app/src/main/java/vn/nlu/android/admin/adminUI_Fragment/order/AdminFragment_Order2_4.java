@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
@@ -22,7 +21,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,16 +31,14 @@ import vn.nlu.android.admin.config.Server;
 import vn.nlu.android.admin.model.Order;
 import vn.nlu.android.admin.model.OrderData;
 
-public class AdminFragment_Order extends Fragment {
+public class AdminFragment_Order2_4 extends Fragment {
 
-    private RecyclerView recycleview_order;
-    private ArrayList<Order> data = new ArrayList<Order>();
-
-
+    private ArrayList<Order> data;
+    RecyclerView recycleview_order2_4;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.admin_fragment_order, container, false);
-        recycleview_order = root.findViewById(R.id.recycleview_order);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        View root = inflater.inflate(R.layout.admin_fragment_order2_4, container, false);
+        recycleview_order2_4 = root.findViewById(R.id.recycleview_order2_4);
+        data = new ArrayList<Order>();
         loadData();
         return root;
     }
@@ -52,9 +48,10 @@ public class AdminFragment_Order extends Fragment {
         HashMap<Integer, Integer> saveID = new HashMap<Integer, Integer>();
         ArrayList<Integer> checkexistIDdonhang = new ArrayList<Integer>();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.admin_donhang, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.admin_donhang2+"?idtinhtrang=4", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                System.out.println("44444 :" + response);
                 try {
                     JSONArray jsonArr = new JSONArray(response);
                     int back = 0;
@@ -95,10 +92,8 @@ public class AdminFragment_Order extends Fragment {
                             order = new Order(iddonhang, iduser, idtinhtrang, ngaytao, diachi, hinhthuctt, ten, sdt,img);
                             saveID.put(iddonhang, i - back);
                             checkexistIDdonhang.add(iddonhang);
+                            isExist = false;
                         }
-
-
-
                         ArrayList<OrderData> orderdata = order.getData();
                         orderdata.add(orderData);
                         order.setData(orderdata);
@@ -129,8 +124,8 @@ public class AdminFragment_Order extends Fragment {
 
     private void setdata(ArrayList<Order> data) {
         AdapterOrder adpater = new AdapterOrder(data,getContext());
-        recycleview_order.setAdapter(adpater);
-        recycleview_order.setHasFixedSize(false);
+        recycleview_order2_4.setAdapter(adpater);
+        recycleview_order2_4.setHasFixedSize(false);
     }
 
 
