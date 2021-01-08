@@ -94,4 +94,6 @@
     <string name="menu_order">Order</string>
     <string name="menu_order2">Order 2</string>
 
+    <string name="msg_token_fmt" translatable="false">FCM registration Token: %s</string>
+
 </resources>
