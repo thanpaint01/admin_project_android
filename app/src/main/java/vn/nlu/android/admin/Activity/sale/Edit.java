@@ -56,7 +56,7 @@ public class Edit extends AppCompatActivity {
         salenamedata.setText(b.getString("sale"));
         salengaybdkmdata.setText(b.getString("ngaybdkm"));
         salengayktkmdata.setText(b.getString("ngayktkm"));
-        if (b.getString("active").equals("1")) {
+        if (b.getInt("active") == 1) {
             rdoActive.setChecked(true);
         } else rdoDisable.setChecked(true);
 
@@ -75,7 +75,7 @@ public class Edit extends AppCompatActivity {
         return TextUtils.isEmpty(str);
     }
     public boolean isDate(String dateStr) {
-        DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         sdf.setLenient(false);
         try {
             sdf.parse(dateStr);
@@ -121,7 +121,7 @@ public class Edit extends AppCompatActivity {
                 System.out.println("response" + response);
                 if (response.trim().equals("success")) {
                     Toast.makeText(getApplicationContext(), "Edit Sale Success", Toast.LENGTH_LONG).show();
-                }
+                }else Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
             }
         }, new Response.ErrorListener() {
             @Override

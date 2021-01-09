@@ -28,9 +28,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import vn.nlu.android.admin.Activity.brand.Edit;
+import vn.nlu.android.admin.Activity.sale.Edit;
 import vn.nlu.android.admin.R;
+import vn.nlu.android.admin.adminUI_Fragment.sale.AdminFragment_Sale;
 import vn.nlu.android.admin.config.Server;
+import vn.nlu.android.admin.model.Comment;
 import vn.nlu.android.admin.model.Sale;
 
 public class AdapterSale extends RecyclerView.Adapter<AdapterSale.SaleAdapter> {

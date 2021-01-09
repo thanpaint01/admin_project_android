@@ -75,7 +75,7 @@ public class Add extends AppCompatActivity {
                 System.out.println("response" + response);
                 if (response.trim().equals("success")) {
                     Toast.makeText(getApplicationContext(), "Add Slide Success", Toast.LENGTH_LONG).show();
-                }
+                }else Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -85,7 +85,7 @@ public class Add extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("logohang", slidenamedata.getText().toString().trim());
+                params.put("srcslide", slidenamedata.getText().toString().trim());
                 params.put("active", rdoActive.isChecked() ? "1" : "0");
                 return params;
             }

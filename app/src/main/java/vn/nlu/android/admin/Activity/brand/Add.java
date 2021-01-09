@@ -80,7 +80,7 @@ public class Add extends AppCompatActivity {
                 System.out.println("response" + response);
                 if (response.trim().equals("success")) {
                     Toast.makeText(getApplicationContext(), "Add Brand Success", Toast.LENGTH_LONG).show();
-                }
+                }else Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -92,7 +92,7 @@ public class Add extends AppCompatActivity {
                 Map<String, String> params = new HashMap<>();
                 params.put("tenhang", brandnamedata.getText().toString().trim());
                 params.put("logohang", brandimgdata.getText().toString().trim());
-                params.put("active", rdoActive.isChecked() ? "1" : "0");
+                params.put("active", rdoActive.isChecked() ? ""+ 1: ""+0);
                 return params;
             }
         };

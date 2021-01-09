@@ -101,7 +101,7 @@ public class Add extends AppCompatActivity {
                 System.out.println("response" + response);
                 if (response.trim().equals("success")) {
                     Toast.makeText(getApplicationContext(), "Add Sale Success", Toast.LENGTH_LONG).show();
-                }
+                }else Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -122,7 +122,7 @@ public class Add extends AppCompatActivity {
     }
 
     public boolean isDate(String dateStr) {
-        DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         sdf.setLenient(false);
         try {
             sdf.parse(dateStr);

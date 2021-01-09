@@ -1,5 +1,7 @@
 package vn.nlu.android.admin.adminUI_Fragment.slide;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,9 +28,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import vn.nlu.android.admin.Activity.slide.Add;
 import vn.nlu.android.admin.Adapter.AdapterSlide;
 import vn.nlu.android.admin.R;
 import vn.nlu.android.admin.config.Server;
+import vn.nlu.android.admin.model.Sale;
 import vn.nlu.android.admin.model.Slide;
 
 public class AdminFragment_Slide extends Fragment {
@@ -39,6 +44,15 @@ public class AdminFragment_Slide extends Fragment {
         View root = inflater.inflate(R.layout.admin_fragment_slide, container, false);
         recycleview_slide = root.findViewById(R.id.recycleview_slidedetail);
         loadData();
+        FloatingActionButton fab = root.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context context = root.getContext();
+                Intent i = new Intent(context, Add.class);
+                context.startActivity(i);
+            }
+        });
         return root;
     }
 
@@ -93,5 +107,9 @@ public class AdminFragment_Slide extends Fragment {
         AdapterSlide adpater = new AdapterSlide(data, getContext());
         recycleview_slide.setAdapter(adpater);
         recycleview_slide.setHasFixedSize(false);
+    }
+    public ArrayList<Slide> getData(){
+        loadData();
+        return data;
     }
 }

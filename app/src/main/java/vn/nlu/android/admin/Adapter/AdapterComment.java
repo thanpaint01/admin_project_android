@@ -59,7 +59,7 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.CommentA
         holder.textView_productnamecomment.setText(""+ comment.getProductname());
         holder.textView_commentcomment.setText(""+ comment.getComment());
         holder.textView_activecomment.setText(""+ comment.getActive());
-        String status = comment.getActive() ==1?"Active":"Disable";
+        String status = comment.getActive() ==1?"Disable":"Active";
         holder.button_editstatus.setText(""+ status);
 
         boolean isExpandable = data.get(position).isExpandable();

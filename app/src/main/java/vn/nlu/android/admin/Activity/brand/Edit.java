@@ -50,8 +50,8 @@ public class Edit extends AppCompatActivity {
         b = i.getBundleExtra("data");
 
         brandnamedata.setText(b.getString("name"));
-        brandimgdata.setText(b.getString("img"));
-        if (b.getString("active").equals("1")) {
+        brandimgdata.setText(b.getString("img").replace(Server.HOST,""));
+        if (b.getInt("active") == 1) {
             rdoActive.setChecked(true);
         } else rdoDisable.setChecked(true);
 
@@ -90,8 +90,8 @@ public class Edit extends AppCompatActivity {
             public void onResponse(String response) {
                 System.out.println("response" + response);
                 if (response.trim().equals("success")) {
-                    Toast.makeText(getApplicationContext(), "Add Brand Success", Toast.LENGTH_LONG).show();
-                }
+                    Toast.makeText(getApplicationContext(), "Edit Brand Success", Toast.LENGTH_LONG).show();
+                }else Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
             }
         }, new Response.ErrorListener() {
             @Override

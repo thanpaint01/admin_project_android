@@ -1,5 +1,7 @@
 package vn.nlu.android.admin.adminUI_Fragment.sale;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,6 +28,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import vn.nlu.android.admin.Activity.sale.Add;
 import vn.nlu.android.admin.Adapter.AdapterSale;
 import vn.nlu.android.admin.R;
 import vn.nlu.android.admin.config.Server;
@@ -33,12 +37,22 @@ import vn.nlu.android.admin.model.Sale;
 public class AdminFragment_Sale extends Fragment {
 
     private RecyclerView recycleview_sale;
-    private ArrayList<Sale> data = new ArrayList<Sale>();
+    private ArrayList<Sale> data;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.admin_fragment_sale, container, false);
         recycleview_sale = root.findViewById(R.id.recycleview_sale);
+        data = new ArrayList<Sale>();
         loadData();
+        FloatingActionButton fab = root.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context context = root.getContext();
+                Intent i = new Intent(context, Add.class);
+                context.startActivity(i);
+            }
+        });
         return root;
     }
 

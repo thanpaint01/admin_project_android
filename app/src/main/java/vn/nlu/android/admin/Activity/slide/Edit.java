@@ -48,9 +48,9 @@ public class Edit extends AppCompatActivity {
         Intent i = getIntent();
         b = i.getBundleExtra("data");
 
-        slidenamedata.setText(b.getString("img"));
+        slidenamedata.setText(b.getString("img").replace(Server.HOST,""));
 
-        if (b.getString("active").equals("1")) {
+        if (b.getInt("active") == 1) {
             rdoActive.setChecked(true);
         } else rdoDisable.setChecked(true);
 
@@ -86,7 +86,7 @@ public class Edit extends AppCompatActivity {
                 System.out.println("response" + response);
                 if (response.trim().equals("success")) {
                     Toast.makeText(getApplicationContext(), "Edit Slide Success", Toast.LENGTH_LONG).show();
-                }
+                }else Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -96,7 +96,7 @@ public class Edit extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("logohang", slidenamedata.getText().toString().trim());
+                params.put("srcslide", slidenamedata.getText().toString().trim());
                 params.put("active", rdoActive.isChecked() ? "1" : "0");
                 params.put("id","" +b.getInt("id"));
                 return params;
