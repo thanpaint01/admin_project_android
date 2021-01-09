@@ -30,10 +30,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import vn.nlu.android.admin.Activity.brand.Edit;
 import vn.nlu.android.admin.R;
 import vn.nlu.android.admin.config.Server;
 import vn.nlu.android.admin.model.Brand;
-import vn.nlu.android.admin.model.Comment;
 
 public class AdapterBrand extends RecyclerView.Adapter<AdapterBrand.BrandAdapter> {
     ArrayList<Brand> data;
@@ -107,8 +107,12 @@ public class AdapterBrand extends RecyclerView.Adapter<AdapterBrand.BrandAdapter
                     Brand brand = data.get(getAdapterPosition());
                     Bundle b = new Bundle();
                     b.putInt("id", brand.getId());
-                    Intent i = new Intent();
+                    b.putString("name", brand.getNameOfBrand());
+                    b.putString("img", brand.getImg());
+                    b.putInt("active", brand.getActive());
+                    Intent i = new Intent(context, Edit.class);
                     i.putExtra("data",b);
+                    context.startActivity(i);
                 }
             });
             button_deletebrand.setOnClickListener(new View.OnClickListener() {

@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,16 +23,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import vn.nlu.android.admin.Activity.brand.Edit;
 import vn.nlu.android.admin.R;
 import vn.nlu.android.admin.config.Server;
 import vn.nlu.android.admin.model.Sale;
-import vn.nlu.android.admin.model.Slide;
 
 public class AdapterSale extends RecyclerView.Adapter<AdapterSale.SaleAdapter> {
     ArrayList<Sale> data;
@@ -106,9 +104,14 @@ public class AdapterSale extends RecyclerView.Adapter<AdapterSale.SaleAdapter> {
                 public void onClick(View v) {
                     Sale sale = data.get(getAdapterPosition());
                     Bundle b = new Bundle();
+                    b.putString("sale", sale.getSale());
+                    b.putString("ngaybdkm", sale.getNgaybdkm());
+                    b.putString("ngayktkm", sale.getNgayktkm());
+                    b.putInt("active", sale.getActive());
                     b.putInt("id", sale.getId());
-                    Intent i = new Intent();
-                    i.putExtra("data", b);
+                    Intent i = new Intent(context, Edit.class);
+                    i.putExtra("data",b);
+                    context.startActivity(i);
                 }
             });
             button_deletesale.setOnClickListener(new View.OnClickListener() {

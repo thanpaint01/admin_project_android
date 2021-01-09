@@ -59,6 +59,8 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.CommentA
         holder.textView_productnamecomment.setText(""+ comment.getProductname());
         holder.textView_commentcomment.setText(""+ comment.getComment());
         holder.textView_activecomment.setText(""+ comment.getActive());
+        String status = comment.getActive() ==1?"Active":"Disable";
+        holder.button_editstatus.setText(""+ status);
 
         boolean isExpandable = data.get(position).isExpandable();
         holder.expandable_data_comment.setVisibility(isExpandable? View.VISIBLE:View.GONE);
@@ -73,7 +75,7 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.CommentA
         TextView textView_idcomment,textView_idusercomment,textView_productnamecomment,textView_activecomment,textView_commentcomment;
         LinearLayout linear_layout_commentrow;
         RelativeLayout expandable_data_comment;
-        Button button_editcomment,button_deletecomment;
+        Button button_editstatus;
 
         public CommentAdapter(@NonNull View itemView) {
             super(itemView);
@@ -85,8 +87,7 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.CommentA
 
             linear_layout_commentrow = itemView.findViewById(R.id.linear_layout_commentrow);
             expandable_data_comment = itemView.findViewById(R.id.expandable_data_comment);
-            button_editcomment = itemView.findViewById(R.id.button_editcomment);
-            button_deletecomment = itemView.findViewById(R.id.button_deletecomment);
+            button_editstatus = itemView.findViewById(R.id.button_editstatus);
 
 
             linear_layout_commentrow.setOnClickListener(new View.OnClickListener() {
@@ -97,19 +98,11 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.CommentA
                     notifyItemChanged(getAdapterPosition());
                 }
             });
-            button_editcomment.setOnClickListener(new View.OnClickListener() {
+            button_editstatus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Comment comment = data.get(getAdapterPosition());
-                    Bundle b = new Bundle();
-                    b.putInt("id", comment.getId());
-                    Intent i = new Intent();
-                    i.putExtra("data",b);
-                }
-            });
-            button_deletecomment.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
                     builder.setTitle("Confirm");
                     builder.setMessage("Are you sure?");
@@ -117,11 +110,11 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.CommentA
                         public void onClick(DialogInterface dialog, int which) {
 
                             RequestQueue requestQueue = Volley.newRequestQueue(context);
-                            StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.deleterow+"binhluan", new Response.Listener<String>() {
+                            StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.updaterow+"binhluan", new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
                                     if(response.equals("success"))
-                                        doRemove(getAdapterPosition());
+                                        doUpdate(getAdapterPosition());
                                 }
                             }, new Response.ErrorListener() {
                                 @Override
@@ -132,6 +125,8 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.CommentA
                                 protected Map<String, String> getParams() throws AuthFailureError {
                                     Map<String, String> params = new HashMap<>();
                                     Comment comment = data.get(getAdapterPosition());
+                                    int status = comment.getActive() ==1?0:1;
+                                    params.put("active",""+status);
                                     params.put("id",""+comment.getId());
                                     return params;
                                 }
@@ -154,10 +149,11 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.CommentA
             });
         }
     }
-    public void doRemove(int position){
-        data.remove(position);
-        this.notifyItemRemoved(position);
-        this.notifyItemRangeChanged(position, data.size());
+    public void doUpdate(int position){
+        Comment c = data.get(position);
+        int status = c.getActive() ==1?0:1;
+        data.get(position).setActive(status);
+        this.notifyItemChanged(position);
     }
 }
 
