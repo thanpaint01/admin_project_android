@@ -46,7 +46,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/custom_input_fields"
                 android:hint="From"
-                android:visibility="gone"/>
+                />
 
             <EditText
                 android:id="@+id/addDen"
@@ -56,7 +56,6 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/custom_input_fields"
                 android:hint="To"
-                android:visibility="gone"
                  />
 
 

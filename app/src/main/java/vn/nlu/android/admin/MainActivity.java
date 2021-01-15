@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -34,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.adminnav_home, R.id.adminnav_user,R.id.adminnav_product,R.id.adminnav_tag,R.id.adminnav_brand,R.id.adminnav_sale,
-                R.id.adminnav_slide,R.id.adminnav_comment,R.id.adminnav_order)
+                R.id.adminnav_home, R.id.adminnav_user, R.id.adminnav_product, R.id.adminnav_tag, R.id.adminnav_brand, R.id.adminnav_sale,
+                R.id.adminnav_slide, R.id.adminnav_comment, R.id.adminnav_order)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
