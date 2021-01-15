@@ -1,5 +1,6 @@
 package vn.nlu.android.admin.Activity.tag;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -10,7 +11,6 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -28,38 +28,46 @@ import java.util.Map;
 import vn.nlu.android.admin.R;
 import vn.nlu.android.admin.config.Server;
 
-public class Add extends AppCompatActivity {
-    Spinner addtag;
-    EditText addstorage, addTu, addDen;
+public class Edit extends AppCompatActivity {
+    Spinner edttag;
+    EditText edtstorage;
     RadioButton rdoActive, rdoInactive;
-    Button btn_addtag;
+    Button btn_edttag;
     int tag;
-    String tagName;
+    Bundle b;
+    String tagName = edttag.getSelectedItem().toString().toLowerCase();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tagadd);
+        setContentView(R.layout.activity_tagedit);
 
         //init attribute of layout
-        addtag = findViewById(R.id.addtag);
-        addstorage = findViewById((R.id.addstorage));
-        btn_addtag = findViewById(R.id.btn_addtag);
+        //init attribute of layout
+        edttag = findViewById(R.id.edttag);
+        edtstorage = findViewById((R.id.edtstorage));
+        btn_edttag = findViewById(R.id.btn_edttag);
         rdoActive = findViewById(R.id.rdoActive);
-        addTu = findViewById(R.id.addTu);
-        addDen = findViewById(R.id.addDen);
+        rdoInactive = findViewById(R.id.rdoInactive);
 
+
+        Intent i = getIntent();
+        b = i.getBundleExtra("data");
         //spinner init
         setdataTag();
-        tagName = addtag.getSelectedItem().toString().toLowerCase();
 
-        //View EditText for price
-        viewPrice();
-        btn_addtag.setOnClickListener(new View.OnClickListener() {
+        edtstorage.setText((b.getString("storage")).trim());
+        if (b.getInt("active") == 1) {
+            rdoActive.setChecked(true);
+        } else rdoInactive.setChecked(true);
+
+
+
+        btn_edttag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (checkValid()) {
-                    addTag();
+                    editTag();
                 }
             }
         });
@@ -70,61 +78,55 @@ public class Add extends AppCompatActivity {
         return TextUtils.isEmpty(str);
     }
 
+    boolean isEditTextPositiveNumber(EditText text) {
+        String num = text.getText().toString();
+        if (Integer.parseInt(num) > 0)
+            return true;
+        return false;
+    }
 
     public boolean checkValid() {
-        if (isEditTextEmpty(addstorage)) {
-            addstorage.requestFocus();
-            addstorage.setError("Storage is empty");
+        if (isEditTextEmpty(edtstorage)) {
+            edtstorage.requestFocus();
+            edtstorage.setError("Must not empty");
             return false;
         }
 //        if (!tagName.equalsIgnoreCase("Price")) {
-//            if (!isEditTextPositiveNumber(addstorage)) {
-//                addstorage.requestFocus();
-//                addstorage.setError("Must be a positive number");
+//            if (!isEditTextPositiveNumber(edtstorage)) {
+//                edtstorage.requestFocus();
+//                edtstorage.setError("Must be a positive number");
 //                return false;
 //            }
 //        }
         return true;
     }
 
-    private void viewPrice() {
-        if (tagName.equalsIgnoreCase("Price")) {
-            addTu.setVisibility(View.VISIBLE);
-            addDen.setVisibility(View.VISIBLE);
-        }
-    }
-
-    private void addTag() {
-
-        if (tagName.equalsIgnoreCase("Battery")) {
+    private void editTag() {
+        if (tagName.equals("Battery")) {
             tagName = "pin";
-        } else if (tagName.equalsIgnoreCase("Price")) {
+        } else if (tagName.equals("Price")) {
             tagName = "gia";
         }
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        StringRequest stringRequestCheckExist = new StringRequest(Request.Method.POST, Server.addrow + tagName, new Response.Listener<String>() {
+        StringRequest stringRequestCheckExist = new StringRequest(Request.Method.POST, Server.updaterow + tagName, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 System.out.println("response" + response);
                 if (response.trim().equals("success")) {
-                    Toast.makeText(getApplicationContext(), "Add Tag Success", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_LONG).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
             }
         }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                if (!addtag.getSelectedItem().toString().equalsIgnoreCase("Price")) {
-                    params.put("dungluong", addstorage.getText().toString().trim());
-                } else {
-                    params.put("dungluong", addTu.getText().toString().trim() + " - " + addDen.getText().toString().trim() + " Triệu");
-                }
+                params.put("dungluong", edtstorage.getText().toString());
                 params.put("active", rdoActive.isChecked() ? "1" : "0");
+                params.put("id", "" + b.getInt("id"));
                 return params;
             }
         };
@@ -138,17 +140,19 @@ public class Add extends AppCompatActivity {
         item[2] = "Battery";
         item[3] = "Price";
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, item);
-        addtag.setAdapter(adapter);
-
-        addtag.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        edttag.setAdapter(adapter);
+        int position = adapter.getPosition(""+b.getInt("tag"));
+        edttag.setSelection(position);
+        edttag.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 tag = position;
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
-                tag = 0;
+                tag = position;
             }
         });
     }
+
 }

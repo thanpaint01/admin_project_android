@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import vn.nlu.android.admin.Activity.tag.Edit;
 import vn.nlu.android.admin.R;
 import vn.nlu.android.admin.config.Server;
 import vn.nlu.android.admin.model.Slide;
@@ -101,8 +102,12 @@ public class AdapterRom extends RecyclerView.Adapter<AdapterRom.RomAdapter> {
                     Tag rom = data.get(getAdapterPosition());
                     Bundle b = new Bundle();
                     b.putInt("id", rom.getId());
-                    Intent i = new Intent();
-                    i.putExtra("data",b);
+                    b.putString("storage", rom.getData());
+                    b.putInt("active", rom.getActive());
+                    b.putString("tag", "Rom");
+                    Intent i = new Intent(context, Edit.class);
+                    i.putExtra("data", b);
+                    context.startActivity(i);
                 }
             });
             button_deleterom.setOnClickListener(new View.OnClickListener() {

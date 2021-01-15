@@ -29,6 +29,7 @@
         <activity android:name=".Activity.user.Add"></activity>
         <activity android:name=".Activity.product.Add"></activity>
         <activity android:name=".Activity.tag.Add"></activity>
+        <activity android:name=".Activity.tag.Edit"></activity>
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />

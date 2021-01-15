@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import vn.nlu.android.admin.Activity.tag.Edit;
 import vn.nlu.android.admin.R;
 import vn.nlu.android.admin.config.Server;
 import vn.nlu.android.admin.model.Brand;
@@ -98,11 +99,15 @@ public class AdapterBattery extends RecyclerView.Adapter<AdapterBattery.BatteryA
             button_editpin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Tag rom = data.get(getAdapterPosition());
+                    Tag battery = data.get(getAdapterPosition());
                     Bundle b = new Bundle();
-                    b.putInt("id", rom.getId());
-                    Intent i = new Intent();
-                    i.putExtra("data",b);
+                    b.putInt("id", battery.getId());
+                    b.putString("storage", battery.getData());
+                    b.putInt("active", battery.getActive());
+                    b.putString("tag", "Battery");
+                    Intent i = new Intent(context, Edit.class);
+                    i.putExtra("data", b);
+                    context.startActivity(i);
                 }
             });
             button_deletepin.setOnClickListener(new View.OnClickListener() {

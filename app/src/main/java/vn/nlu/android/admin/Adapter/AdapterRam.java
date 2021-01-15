@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import vn.nlu.android.admin.Activity.tag.Edit;
 import vn.nlu.android.admin.R;
 import vn.nlu.android.admin.config.Server;
 import vn.nlu.android.admin.model.Tag;
@@ -100,8 +101,12 @@ public class AdapterRam extends RecyclerView.Adapter<AdapterRam.RamAdapter> {
                     Tag ramRomBattery = data.get(getAdapterPosition());
                     Bundle b = new Bundle();
                     b.putInt("id", ramRomBattery.getId());
-                    Intent i = new Intent();
-                    i.putExtra("data",b);
+                    b.putString("storage", ramRomBattery.getData());
+                    b.putInt("active", ramRomBattery.getActive());
+                    b.putString("tag", "Ram");
+                    Intent i = new Intent(context, Edit.class);
+                    i.putExtra("data", b);
+                    context.startActivity(i);
                 }
             });
             button_deleteram.setOnClickListener(new View.OnClickListener() {
