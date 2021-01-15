@@ -34,7 +34,6 @@ public class Add extends AppCompatActivity {
     RadioButton rdoActive, rdoInactive;
     Button btn_addtag;
     int tag;
-    String tagName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +50,8 @@ public class Add extends AppCompatActivity {
 
         //spinner init
         setdataTag();
-        tagName = addtag.getSelectedItem().toString().toLowerCase();
 
         //View EditText for price
-        viewPrice();
         btn_addtag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,34 +69,25 @@ public class Add extends AppCompatActivity {
 
 
     public boolean checkValid() {
-        if (isEditTextEmpty(addstorage)) {
-            addstorage.requestFocus();
-            addstorage.setError("Storage is empty");
-            return false;
+        if (!addtag.getSelectedItem().toString().equals("Price")) {
+            if (isEditTextEmpty(addstorage)) {
+                addstorage.requestFocus();
+                addstorage.setError("Storage is empty");
+                return false;
+            }
         }
-//        if (!tagName.equalsIgnoreCase("Price")) {
-//            if (!isEditTextPositiveNumber(addstorage)) {
-//                addstorage.requestFocus();
-//                addstorage.setError("Must be a positive number");
-//                return false;
-//            }
-//        }
         return true;
     }
 
-    private void viewPrice() {
-        if (tagName.equalsIgnoreCase("Price")) {
-            addTu.setVisibility(View.VISIBLE);
-            addDen.setVisibility(View.VISIBLE);
-        }
-    }
 
     private void addTag() {
-
+        String tagName = addtag.getSelectedItem().toString().toLowerCase();
         if (tagName.equalsIgnoreCase("Battery")) {
             tagName = "pin";
         } else if (tagName.equalsIgnoreCase("Price")) {
             tagName = "gia";
+        } else if (tagName.equalsIgnoreCase("Rom")) {
+            tagName = "rom";
         }
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         StringRequest stringRequestCheckExist = new StringRequest(Request.Method.POST, Server.addrow + tagName, new Response.Listener<String>() {
@@ -119,7 +107,7 @@ public class Add extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                if (!addtag.getSelectedItem().toString().equalsIgnoreCase("Price")) {
+                if (!addtag.getSelectedItem().toString().equals("Price")) {
                     params.put("dungluong", addstorage.getText().toString().trim());
                 } else {
                     params.put("dungluong", addTu.getText().toString().trim() + " - " + addDen.getText().toString().trim() + " Triệu");
@@ -143,6 +131,15 @@ public class Add extends AppCompatActivity {
         addtag.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if ("Price".equals(addtag.getSelectedItem().toString())) {
+                    addTu.setVisibility(View.VISIBLE);
+                    addDen.setVisibility(View.VISIBLE);
+                    addstorage.setVisibility(View.GONE);
+                } else {
+                    addTu.setVisibility(View.GONE);
+                    addDen.setVisibility(View.GONE);
+                    addstorage.setVisibility(View.VISIBLE);
+                }
                 tag = position;
             }
 
@@ -151,4 +148,5 @@ public class Add extends AppCompatActivity {
             }
         });
     }
+
 }
