@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/adminnav_home"
+            android:icon="@drawable/ic_baseline_assessment_24"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/adminnav_user"
+            android:icon="@drawable/ic_baseline_account_box_24"
+            android:title="User" />
+        <item
+            android:id="@+id/adminnav_product"
+            android:icon="@drawable/ic_baseline_smartphone_24"
+            android:title="Product" />
+        <item
+            android:id="@+id/adminnav_tag"
+            android:icon="@drawable/ic_baseline_label_24"
+            android:title="Tag" />
+
+        <item
+            android:id="@+id/adminnav_brand"
+            android:icon="@drawable/ic_baseline_business_24"
+            android:title="Brand" />
+
+        <item
+            android:id="@+id/adminnav_sale"
+            android:icon="@drawable/ic_baseline_content_cut_24"
+            android:title="Sale" />
+
+        <item
+            android:id="@+id/adminnav_slide"
+            android:icon="@drawable/ic_baseline_slideshow_24"
+            android:title="Slide" />
+
+        <item
+            android:id="@+id/adminnav_comment"
+            android:icon="@drawable/ic_baseline_comment_24"
+            android:title="Comment" />
+
+        <item
+            android:id="@+id/adminnav_order"
+            android:icon="@drawable/ic_baseline_shopping_cart_24"
+            android:title="Order" />
+    </group>
+</menu>
