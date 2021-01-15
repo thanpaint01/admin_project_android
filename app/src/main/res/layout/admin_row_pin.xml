@@ -123,7 +123,7 @@
 
 
                 <Button
-                    android:id="@+id/button_editpin"
+                    android:id="@+id/button_editorder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
@@ -133,7 +133,7 @@
                     tools:ignore="ButtonStyle" />
 
                 <Button
-                    android:id="@+id/button_deletepin"
+                    android:id="@+id/button_deleteorder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

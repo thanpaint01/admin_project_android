@@ -17,7 +17,7 @@ public final class Server {
      public static String deleterow =HOST+"deleterow.php?table=";
      public static String updaterow =HOST+"updaterow.php?table=";
      public static String addrow =HOST+"addrow.php?table=";
-     public static String admin_donhang =HOST+"admin_donhang.php";
+     public static String admin_donhang2 =HOST+"admin_donhang2.php";
 
 
 }

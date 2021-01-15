@@ -42,7 +42,7 @@
             android:title="Comment" />
 
         <item
-            android:id="@+id/adminnav_order"
+            android:id="@+id/adminnav_order2"
             android:icon="@drawable/ic_baseline_shopping_cart_24"
             android:title="Order" />
     </group>

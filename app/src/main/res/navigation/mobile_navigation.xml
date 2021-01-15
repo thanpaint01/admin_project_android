@@ -54,9 +54,9 @@
         tools:layout="@layout/admin_fragment_comment" />
 
     <fragment
-        android:id="@+id/adminnav_order"
-        android:name="vn.nlu.android.admin.adminUI_Fragment.order.AdminFragment_Order"
+        android:id="@+id/adminnav_order2"
+        android:name="vn.nlu.android.admin.adminUI_Fragment.order.AdminFragment_Order2"
         android:label="@string/menu_order"
-        tools:layout="@layout/admin_fragment_order" />
+        tools:layout="@layout/admin_fragment_order2" />
 
 </navigation>

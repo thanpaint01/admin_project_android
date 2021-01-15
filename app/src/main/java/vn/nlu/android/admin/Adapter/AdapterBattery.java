@@ -31,7 +31,6 @@ import java.util.Map;
 import vn.nlu.android.admin.Activity.tag.Edit;
 import vn.nlu.android.admin.R;
 import vn.nlu.android.admin.config.Server;
-import vn.nlu.android.admin.model.Brand;
 import vn.nlu.android.admin.model.Tag;
 
 public class AdapterBattery extends RecyclerView.Adapter<AdapterBattery.BatteryAdapter> {
@@ -85,8 +84,8 @@ public class AdapterBattery extends RecyclerView.Adapter<AdapterBattery.BatteryA
 
             linear_layout_pinrow = itemView.findViewById(R.id.linear_layout_pinrow);
             expandable_data_pin = itemView.findViewById(R.id.expandable_data_pin);
-            button_editpin = itemView.findViewById(R.id.button_editpin);
-            button_deletepin = itemView.findViewById(R.id.button_deletepin);
+            button_editpin = itemView.findViewById(R.id.button_editorder);
+            button_deletepin = itemView.findViewById(R.id.button_deleteorder);
 
             linear_layout_pinrow.setOnClickListener(new View.OnClickListener() {
                 @Override

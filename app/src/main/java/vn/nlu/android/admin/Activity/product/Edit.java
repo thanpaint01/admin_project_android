@@ -564,11 +564,7 @@ public class Edit extends AppCompatActivity {
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
-                for (Tag ram : dataram) {
-                    if (ram.getData().equals(b.getString("ram"))) {
-                        idram = ram.getId();
-                    }
-                }
+                idram = position;
             }
         });
     }
@@ -594,11 +590,7 @@ public class Edit extends AppCompatActivity {
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
-                for (Tag rom : datarom) {
-                    if (rom.getData().equals(b.getString("rom"))) {
-                        idrom = rom.getId();
-                    }
-                }
+                idrom = position;
             }
         });
     }
@@ -624,11 +616,7 @@ public class Edit extends AppCompatActivity {
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
-                for (Tag battery : databattery) {
-                    if (battery.getData().equals(b.getString("pin"))) {
-                        idpin = battery.getId();
-                    }
-                }
+                idpin = position;
             }
         });
     }
@@ -654,11 +642,7 @@ public class Edit extends AppCompatActivity {
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
-                for (Brand brand : databrand) {
-                    if (brand.getNameOfBrand().equals(b.getString("hang"))) {
-                        idhang = brand.getId();
-                    }
-                }
+                idhang = position;
             }
         });
     }
@@ -684,11 +668,7 @@ public class Edit extends AppCompatActivity {
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
-                for (Sale sale : datasale) {
-                    if (sale.getSale().equals(""+b.getInt("sale"))) {
-                        idkm = sale.getId();
-                    }
-                }
+                idkm = position;
             }
         });
     }
@@ -708,7 +688,7 @@ public class Edit extends AppCompatActivity {
                 status = position;
             }
             public void onNothingSelected(AdapterView<?> parent) {
-                status = b.getInt("tinhtrang");
+                status = 3;
             }
         });
 

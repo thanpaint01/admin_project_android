@@ -30,10 +30,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import vn.nlu.android.admin.Activity.slide.Edit;
 import vn.nlu.android.admin.R;
 import vn.nlu.android.admin.config.Server;
 import vn.nlu.android.admin.model.Slide;
-import vn.nlu.android.admin.model.User;
 
 public class AdapterSlide extends RecyclerView.Adapter<AdapterSlide.SlideAdapter> {
     ArrayList<Slide> data;
@@ -105,8 +105,11 @@ public class AdapterSlide extends RecyclerView.Adapter<AdapterSlide.SlideAdapter
                     Slide slide = data.get(getAdapterPosition());
                     Bundle b = new Bundle();
                     b.putInt("id", slide.getId());
-                    Intent i = new Intent();
-                    i.putExtra("data", b);
+                    b.putString("img", slide.getResouceImg());
+                    b.putInt("active", slide.getActive());
+                    Intent i = new Intent(context, Edit.class);
+                    i.putExtra("data",b);
+                    context.startActivity(i);
                 }
             });
             button_deleteslide.setOnClickListener(new View.OnClickListener() {

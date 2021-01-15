@@ -11,15 +11,25 @@ public class Order {
     private String hinhthuctt;
     private String ten;
     private String sdt;
+    private String img;
     private boolean expandable;
     private ArrayList<OrderData> data;
 
-    public Order(int iddonhang, String iduser, String idtinhtrang, String ngaytao, String diachi, String hinhthuctt, String ten, String sdt) {
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public Order(int iddonhang, String iduser, String idtinhtrang, String ngaytao, String diachi, String hinhthuctt, String ten, String sdt, String img) {
         this.iddonhang = iddonhang;
         this.iduser = iduser;
         this.idtinhtrang = idtinhtrang;
         this.ngaytao = ngaytao;
         this.diachi = diachi;
+        this.img = img;
         this.hinhthuctt = hinhthuctt;
         this.ten = ten;
         this.sdt = sdt;

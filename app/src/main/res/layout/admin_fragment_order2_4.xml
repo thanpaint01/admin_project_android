@@ -6,21 +6,14 @@
     android:layout_height="match_parent"
     android:padding="8dp"
     android:orientation="vertical"
-    tools:context=".adminUI_Fragment.slide.AdminFragment_Slide">
+    tools:context=".adminUI_Fragment.order.AdminFragment_Order">
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/recycleview_slidedetail"
+        android:id="@+id/recycleview_order2_4"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_baseline_add_24" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

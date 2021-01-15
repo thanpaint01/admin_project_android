@@ -46,6 +46,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/custom_input_fields"
                 android:hint="From"
+                android:inputType="number"
                 android:visibility="gone"/>
 
             <EditText
@@ -56,6 +57,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/custom_input_fields"
                 android:hint="To"
+                android:inputType="number"
                 android:visibility="gone"
                  />
 
