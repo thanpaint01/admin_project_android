@@ -83,7 +83,7 @@
     <string name="dayend_data">Day End data</string>
     <string name="menu_slide">Slide</string>
     <string name="menu_comment">Comment</string>
-    <string name="id_slide">ID Slide:</string>
+    <string name="id_slide">ID Slide: </string>
     <string name="image_slide">Image Slide</string>
     <string name="id_comment">ID Comment:</string>
     <string name="comment_comment">Comment:</string>

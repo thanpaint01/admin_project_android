@@ -72,7 +72,7 @@ public class AdminFragment_User extends Fragment {
 
                         String ten = jsonObject.getString("ten");
                         ten = isSet(ten);
-                        String img = jsonObject.getString("img");
+                        String img = jsonObject.getString("img").replace(" ","%20");
                         if (img.equals("") || img.equals("null")) {
                             img = "img/user/No-Image.png";
                         }

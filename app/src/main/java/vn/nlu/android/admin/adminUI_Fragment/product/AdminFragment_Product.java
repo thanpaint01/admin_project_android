@@ -142,7 +142,7 @@ public class AdminFragment_Product extends Fragment {
                         String anh3 = jsonObject.getString("anh3");
 
 
-                        Product p = new Product(idsp, Server.HOST+img, ten, tenhang, sale, gia, soluong,
+                        Product p = new Product(idsp, Server.HOST+img01, ten, tenhang, sale, gia, soluong,
                                  ram,  rom,  pin,  baohanh,  Server.HOST+img01,  Server.HOST+img02,
                                 Server.HOST+img03,  Server.HOST+img04,  kichthuoc,  cameratruoc,  camerasau,
                                 dataactive, datatinhtrang , tieude1,tieude2,tieude3,chitiet1,chitiet2,chitiet3,

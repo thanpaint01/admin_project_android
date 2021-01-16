@@ -23,6 +23,7 @@ import vn.nlu.android.admin.Activity.product.Decription;
 import vn.nlu.android.admin.Activity.product.Edit;
 import vn.nlu.android.admin.R;
 import vn.nlu.android.admin.adminUI_Fragment.user.AdminFragment_User;
+import vn.nlu.android.admin.config.Server;
 import vn.nlu.android.admin.model.Product;
 
 public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ProductAdapter> {
@@ -63,23 +64,23 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ProductA
         holder.textView_statusproduct.setText(""+p.getTinhtrang());
         holder.textView_activeproduct.setText(""+p.getActive());
 
-        Picasso.get().load(p.getImg())
+        Picasso.get().load(p.getImg().replace(" ","%20"))
                 .placeholder(R.drawable.ic_baseline_image_24)
                 .error(R.drawable.ic_baseline_broken_image_24)
                 .into(holder.imgView_product);
-        Picasso.get().load(p.getImg01())
+        Picasso.get().load(p.getImg01().replace(" ","%20"))
                 .placeholder(R.drawable.ic_baseline_image_24)
                 .error(R.drawable.ic_baseline_broken_image_24)
                 .into(holder.imgView_product1);
-        Picasso.get().load(p.getImg02())
+        Picasso.get().load(p.getImg02().replace(" ","%20"))
                 .placeholder(R.drawable.ic_baseline_image_24)
                 .error(R.drawable.ic_baseline_broken_image_24)
                 .into(holder.imgView_product2);
-        Picasso.get().load(p.getImg03())
+        Picasso.get().load(p.getImg03().replace(" ","%20"))
                 .placeholder(R.drawable.ic_baseline_image_24)
                 .error(R.drawable.ic_baseline_broken_image_24)
                 .into(holder.imgView_product3);
-        Picasso.get().load(p.getImg04())
+        Picasso.get().load(p.getImg04().replace(" ","%20"))
                 .placeholder(R.drawable.ic_baseline_image_24)
                 .error(R.drawable.ic_baseline_broken_image_24)
                 .into(holder.imgView_product4);
@@ -174,10 +175,10 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ProductA
                     b.putString("pin",p.getPin());
                     b.putString("baohanh",""+p.getBaohanh());
                     b.putInt("sale",p.getSale());
-                    b.putString("img01",p.getImg01());
-                    b.putString("img02",p.getImg02());
-                    b.putString("img03",p.getImg03());
-                    b.putString("img04",p.getImg04());
+                    b.putString("img01",p.getImg01().replace(Server.HOST,""));
+                    b.putString("img02",p.getImg02().replace(Server.HOST,""));
+                    b.putString("img03",p.getImg03().replace(Server.HOST,""));
+                    b.putString("img04",p.getImg04().replace(Server.HOST,""));
                     b.putString("kichthuoc",p.getKichthuoc());
                     b.putString("cameratruoc",p.getCameraTruoc());
                     b.putString("camerasau",p.getCameraSau());
@@ -190,9 +191,9 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ProductA
                     b.putString("chitiet1",p.getChitiet1());
                     b.putString("chitiet2",p.getChitiet2());
                     b.putString("chitiet3",p.getChitiet3());
-                    b.putString("anh1",p.getAnh1());
-                    b.putString("anh2",p.getAnh2());
-                    b.putString("anh3",p.getAnh3());
+                    b.putString("anh1",p.getAnh1().replace(Server.HOST,""));
+                    b.putString("anh2",p.getAnh2().replace(Server.HOST,""));
+                    b.putString("anh3",p.getAnh3().replace(Server.HOST,""));
                     Intent i = new Intent(context, Edit.class);
                     i.putExtra("data",b);
                     context.startActivity(i);

@@ -117,23 +117,39 @@
 
             </RadioGroup>
 
-            <EditText
-                android:id="@+id/edtImgurl"
+            <LinearLayout
+                android:id="@+id/linearimg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/lineGender"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/custom_input_fields"
-                android:drawableLeft="@drawable/ic_baseline_image_24"
                 android:drawablePadding="3dp"
-                android:hint="Image url"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:orientation="vertical">
+
+
+                <Button
+                    android:id="@+id/buttonChoose"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Choose image"/>
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="178dp"
+                    android:layout_height="178dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/edtPhoneNo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/edtImgurl"
+                android:layout_below="@id/linearimg"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/custom_input_fields"
                 android:drawableLeft="@drawable/ic_baseline_phone_24"

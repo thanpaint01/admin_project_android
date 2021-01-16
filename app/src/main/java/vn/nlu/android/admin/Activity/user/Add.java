@@ -1,15 +1,27 @@
 package vn.nlu.android.admin.Activity.user;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -19,6 +31,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,10 +45,19 @@ import vn.nlu.android.admin.R;
 import vn.nlu.android.admin.config.Server;
 
 public class Add extends AppCompatActivity {
-    EditText addFullName, addDay, addMonth, addYear,addImgurl, addPhoneNo, addEmailAddress, addAddress, addUsername, addPassword, addConfirmPassword;
-    Button btn_adduser;
+    ImageView imageView;
+    private static final int STORAGE_PERMISSION_CODE = 4655;
+    private int PICK_IMAGE_REQUEST = 1;
+    private Uri filepath;
+    private Bitmap bitmap;
+    private String encodedImage;
+    private String name;
+
+
+    EditText addFullName, addDay, addMonth, addYear, addPhoneNo, addEmailAddress, addAddress, addUsername, addPassword, addConfirmPassword;
+    Button btn_adduser, buttonChoose;
     RadioButton rdoMale, rdoFemale, rdoActive, rdoBan, rdoAdmin, rdoUser;
-    Bundle b;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,29 +69,48 @@ public class Add extends AppCompatActivity {
         addMonth = findViewById(R.id.addMonth);
         addYear = findViewById(R.id.addYear);
         addPhoneNo = findViewById(R.id.addPhoneNo);
-        addImgurl = findViewById(R.id.addImgurl);
         addEmailAddress = findViewById(R.id.addEmailAddress);
         addAddress = findViewById(R.id.addAddress);
         addUsername = findViewById(R.id.addUsername);
         addPassword = findViewById(R.id.addPassword);
         addConfirmPassword = findViewById(R.id.addConfirmPassword);
         btn_adduser = findViewById(R.id.btn_adduser);
+        buttonChoose = findViewById(R.id.buttonChoose);
         rdoMale = findViewById(R.id.rdoMale);
         rdoFemale = findViewById(R.id.rdoFemale);
         rdoActive = findViewById(R.id.rdoActive);
         rdoBan = findViewById(R.id.rdoBan);
         rdoAdmin = findViewById(R.id.rdoAdmin);
         rdoUser = findViewById(R.id.rdoUser);
-
+        name = "";
+        buttonChoose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectImage(v);
+            }
+        });
         btn_adduser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (checkValid()) {
-                    add();
-                    finish();
+                    if(!name.equals("")){
+                        saveData(v);
+                        add();
+                        finish();
+                    }else Toast.makeText(getApplicationContext(),"Please Choose Image",Toast.LENGTH_LONG).show();
+
                 }
             }
         });
+        imageView = (ImageView) findViewById(R.id.imageView);
+
+
+
+
+
+        requestStoragePermission();
+
+
     }
 
     boolean isEditTextEmpty(EditText text) {
@@ -174,12 +217,98 @@ public class Add extends AppCompatActivity {
                 params.put("diachi", addAddress.getText().toString());
                 params.put("taikhoan", addUsername.getText().toString());
                 params.put("matkhau", addPassword.getText().toString());
-                params.put("img", addImgurl.getText().toString());
+                params.put("img", "img/slide/"+name);
                 params.put("quyen", rdoAdmin.isChecked() ? "2" : "1");
                 params.put("active", rdoActive.isChecked() ? "1" : "0");
                 return params;
             }
         };
         requestQueue.add(stringRequestCheckExist);
+    }
+
+    private void requestStoragePermission() {
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+            return;
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+        }
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+    }
+
+    private void ShowFileChooser() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && data != null && data.getData() != null) {
+
+            filepath = data.getData();
+            try {
+                InputStream inputStream = getContentResolver().openInputStream(filepath);
+                bitmap = BitmapFactory.decodeStream(inputStream);
+                imageView.setImageBitmap(bitmap);
+                imageStore(bitmap);
+                name = getName(filepath);
+            } catch (FileNotFoundException ex) {
+                ex.printStackTrace();
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void imageStore(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100,stream);
+        byte[] imageBytes = stream.toByteArray();
+        encodedImage = android.util.Base64.encodeToString(imageBytes, Base64.DEFAULT);
+    }
+
+    public void selectImage(View view) {
+        ShowFileChooser();
+    }
+
+    private String getName(Uri uri) {
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        String document_id = cursor.getString(0);
+        document_id = document_id.substring(document_id.lastIndexOf(":") + 1);
+        cursor = getContentResolver().query(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null, MediaStore.Images.Media._ID + "=?", new String[]{document_id}, null
+        );
+        cursor.moveToFirst();
+        name = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME));
+        cursor.close();
+        return name;
+    }
+
+    public void saveData(View view) {
+        StringRequest request = new StringRequest(Request.Method.POST, Server.upload +"slide"
+                , new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("image", encodedImage);
+                params.put("name", name);
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(request);
     }
 }
