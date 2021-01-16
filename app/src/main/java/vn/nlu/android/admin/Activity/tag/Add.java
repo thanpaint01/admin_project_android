@@ -51,7 +51,6 @@ public class Add extends AppCompatActivity {
         //spinner init
         setdataTag();
 
-        //View EditText for price
         btn_addtag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,6 +75,16 @@ public class Add extends AppCompatActivity {
                 addstorage.setError("Storage is empty");
                 return false;
             }
+        }else {
+            if (isEditTextEmpty(addTu) || Integer.parseInt(addTu.getText().toString()) <=0 ){
+                 addTu.requestFocus();
+                addTu.setError("Must be a number > 0");
+                return false;
+                }else if (isEditTextEmpty(addDen)|| Integer.parseInt(addDen.getText().toString()) <=0){
+                     addDen.requestFocus();
+                addDen.setError("Must be a number > 0");
+                return false;
+                }
         }
         return true;
     }
@@ -132,6 +141,7 @@ public class Add extends AppCompatActivity {
         addtag.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //View EditText for price
                 if ("Price".equals(addtag.getSelectedItem().toString())) {
                     addTu.setVisibility(View.VISIBLE);
                     addDen.setVisibility(View.VISIBLE);
@@ -149,5 +159,4 @@ public class Add extends AppCompatActivity {
             }
         });
     }
-
 }

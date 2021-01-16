@@ -94,18 +94,27 @@ public class Edit extends AppCompatActivity {
         return TextUtils.isEmpty(str);
     }
 
-
-    public boolean checkValid() {
+ public boolean checkValid() {
         if (!edttag.getSelectedItem().toString().equals("Price")) {
             if (isEditTextEmpty(edtstorage)) {
                 edtstorage.requestFocus();
-                edtstorage.setError("Must not empty");
+                edtstorage.setError("Storage is empty");
                 return false;
             }
+        }else {
+            if (isEditTextEmpty(edtTu) || Integer.parseInt(edtTu.getText().toString()) <=0 ){
+                 edtTu.requestFocus();
+                edtTu.setError("Must be a number > 0");
+                return false;
+                }else if (isEditTextEmpty(edtDen)|| Integer.parseInt(edtDen.getText().toString()) <=0){
+                     edtDen.requestFocus();
+                edtDen.setError("Must be a number > 0");
+                return false;
+                }
         }
         return true;
     }
-
+    
     private void editTag() {
         String tagName = edttag.getSelectedItem().toString().toLowerCase();
         if (tagName.equalsIgnoreCase("Battery")) {
