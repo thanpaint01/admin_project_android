@@ -57,6 +57,7 @@ public class Add extends AppCompatActivity {
             public void onClick(View v) {
                 if (checkValid()) {
                     addTag();
+                    finish();
                 }
             }
         });
