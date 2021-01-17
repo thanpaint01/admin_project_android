@@ -1,20 +1,33 @@
 package vn.nlu.android.admin.Activity.product;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -26,6 +39,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,11 +54,26 @@ import vn.nlu.android.admin.model.Sale;
 import vn.nlu.android.admin.model.Tag;
 
 public class Add extends AppCompatActivity {
-    EditText addname, addimg, addimg1, addimg2, addimg3, addimg4, addprice,addstorage, addguarantee, addscreen, addfrontcam, addrearcam,
-            addtitle1, addtitle2, addtitle3, addimgdes1, addimgdes2, addimgdes3, adddetail1, adddetail2, adddetail3;
+    EditText addname, addprice,addstorage, addguarantee, addscreen, addfrontcam, addrearcam,
+            addtitle1, addtitle2, addtitle3, adddetail1, adddetail2, adddetail3;
     Spinner addbrand, addsale, addram, addrom, addbattery, addstatus;
     Button btn_addproduct;
     RadioButton rdoActive, rdoDisable;
+    int currentimage;
+
+    String namebrand;
+    String productname;
+
+    ImageView imageView1,imageView2,imageView3,imageView4,imageView5,imageView6,imageView7;
+    Button buttonChoose1,buttonChoose2,buttonChoose3,buttonChoose4,buttonChoose5,buttonChoose6,buttonChoose7;
+    private static final int STORAGE_PERMISSION_CODE = 4655;
+    private int PICK_IMAGE_REQUEST = 1;
+    private Uri filepath;
+    private Bitmap bitmap;
+
+    private String encodedImage1,encodedImage2,encodedImage3,encodedImage4,encodedImage5,encodedImage6,encodedImage7;
+    private String name1,name2,name3,name4,name5,name6,name7;
+
     Bundle b;
     private ArrayList<Tag> dataram = new ArrayList<Tag>();
     private ArrayList<Tag> datarom = new ArrayList<Tag>();
@@ -56,14 +87,13 @@ public class Add extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_productadd);
-
+        currentimage = 0;
+        namebrand="";productname="";
+        name1= "";name2= "";name3= "";name4= "";name5= "";name6= "";name7= "";
+        encodedImage1 = "";encodedImage2= "";encodedImage3= "";encodedImage4= "";encodedImage5= "";encodedImage6= "";encodedImage7= "";
         //init attribute of layout
         addname = findViewById(R.id.addname);
-        addimg = findViewById(R.id.addimg);
-        addimg1 = findViewById(R.id.addimg1);
-        addimg2 = findViewById(R.id.addimg2);
-        addimg3 = findViewById(R.id.addimg3);
-        addimg4 = findViewById(R.id.addimg4);
+
         addstorage = findViewById(R.id.addstorage);
         addguarantee = findViewById(R.id.addguarantee);
         addscreen = findViewById(R.id.addscreen);
@@ -72,9 +102,7 @@ public class Add extends AppCompatActivity {
         addtitle1 = findViewById(R.id.addtitle1);
         addtitle2 = findViewById(R.id.addtitle2);
         addtitle3 = findViewById(R.id.addtitle3);
-        addimgdes1 = findViewById(R.id.addimgdes1);
-        addimgdes2 = findViewById(R.id.addimgdes2);
-        addimgdes3 = findViewById(R.id.addimgdes3);
+
         adddetail1 = findViewById(R.id.adddetail1);
         adddetail2 = findViewById(R.id.adddetail2);
         adddetail3 = findViewById(R.id.adddetail3);
@@ -88,9 +116,68 @@ public class Add extends AppCompatActivity {
         addstatus = findViewById(R.id.addstatus);
 
 
-
-
         btn_addproduct = findViewById(R.id.btn_addproduct);
+
+        imageView1 = findViewById(R.id.imageView1);
+        imageView2 = findViewById(R.id.imageView2);
+        imageView3 = findViewById(R.id.imageView3);
+        imageView4 = findViewById(R.id.imageView4);
+        imageView5 = findViewById(R.id.imageView5);
+        imageView6 = findViewById(R.id.imageView6);
+        imageView7 = findViewById(R.id.imageView7);
+
+        buttonChoose1 = findViewById(R.id.buttonChoose1);
+        buttonChoose2 = findViewById(R.id.buttonChoose2);
+        buttonChoose3 = findViewById(R.id.buttonChoose3);
+        buttonChoose4 = findViewById(R.id.buttonChoose4);
+        buttonChoose5 = findViewById(R.id.buttonChoose5);
+        buttonChoose6 = findViewById(R.id.buttonChoose6);
+        buttonChoose7 = findViewById(R.id.buttonChoose7);
+
+        buttonChoose1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectImage(v,1);
+            }
+        });
+        buttonChoose2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectImage(v,2);
+            }
+        });
+        buttonChoose3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectImage(v,3);
+            }
+        });
+        buttonChoose4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectImage(v,4);
+            }
+        });
+        buttonChoose5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectImage(v,5);
+            }
+        });
+        buttonChoose6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectImage(v,6);
+            }
+        });
+        buttonChoose7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectImage(v,7);
+            }
+        });
+
+
         rdoActive = findViewById(R.id.rdoActive);
         rdoDisable = findViewById(R.id.rdoDisable);
 
@@ -98,8 +185,9 @@ public class Add extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (checkValid()) {
+                    productname= addname.getText().toString().replace(" ","").trim().toLowerCase();
+                    saveData(v);
                     addproduct();
-                    adddescription();
                     finish();
                 }
             }
@@ -110,9 +198,9 @@ public class Add extends AppCompatActivity {
         loadDataBattery();
         loadDataSale();
         setdataStatus();
+
+        requestStoragePermission();
     }
-
-
 
     private void loadDataRam(){
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -153,7 +241,6 @@ public class Add extends AppCompatActivity {
         };
         requestQueue.add(stringRequest);
     }
-
     public void loadDataRom() {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.getallrom, new Response.Listener<String>() {
@@ -195,7 +282,6 @@ public class Add extends AppCompatActivity {
         };
         requestQueue.add(stringRequest);
     }
-
     public void loadDataBattery() {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.getallpin, new Response.Listener<String>() {
@@ -237,7 +323,6 @@ public class Add extends AppCompatActivity {
         };
         requestQueue.add(stringRequest);
     }
-
     public void loadDataBrand() {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.getallbrand, new Response.Listener<String>() {
@@ -284,7 +369,6 @@ public class Add extends AppCompatActivity {
         };
         requestQueue.add(stringRequest);
     }
-
     public void loadDataSale() {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.getallsale, new Response.Listener<String>() {
@@ -329,7 +413,6 @@ public class Add extends AppCompatActivity {
         };
         requestQueue.add(stringRequest);
     }
-
     boolean isEditTextEmpty(EditText text) {
         CharSequence str = text.getText().toString();
         return TextUtils.isEmpty(str);
@@ -338,31 +421,6 @@ public class Add extends AppCompatActivity {
         if (isEditTextEmpty(addname)) {
             addname.requestFocus();
             addname.setError("Name Product not EMPTY");
-            return false;
-        }
-        if (isEditTextEmpty(addimg)) {
-            addimg.requestFocus();
-            addimg.setError("Image Url not EMPTY");
-            return false;
-        }
-        if (isEditTextEmpty(addimg1)) {
-            addimg1.requestFocus();
-            addimg1.setError("Image Url 1 not EMPTY");
-            return false;
-        }
-        if (isEditTextEmpty(addimg2)) {
-            addimg2.requestFocus();
-            addimg2.setError("Image Url 2 not EMPTY");
-            return false;
-        }
-        if (isEditTextEmpty(addimg3)) {
-            addimg3.requestFocus();
-            addimg3.setError("Image Url 3 not EMPTY");
-            return false;
-        }
-        if (isEditTextEmpty(addimg4)) {
-            addimg4.requestFocus();
-            addimg4.setError("Image Url 4 not EMPTY");
             return false;
         }
         if (isEditTextEmpty(addstorage)) {
@@ -405,21 +463,6 @@ public class Add extends AppCompatActivity {
             addtitle3.setError("Title 3 not EMPTY");
             return false;
         }
-        if (isEditTextEmpty(addimgdes1)) {
-            addimgdes1.requestFocus();
-            addimgdes1.setError("Image Description 1 not EMPTY");
-            return false;
-        }
-        if (isEditTextEmpty(addimgdes2)) {
-            addimgdes2.requestFocus();
-            addimgdes2.setError("Image Description 2 not EMPTY");
-            return false;
-        }
-        if (isEditTextEmpty(addimgdes3)) {
-            addimgdes3.requestFocus();
-            addimgdes3.setError("Image Description 3 not EMPTY");
-            return false;
-        }
         if (isEditTextEmpty(adddetail1)) {
             adddetail1.requestFocus();
             adddetail1.setError("Detail 1 not EMPTY");
@@ -437,16 +480,43 @@ public class Add extends AppCompatActivity {
         }
         return true;
     }
-
     private void addproduct() {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         StringRequest stringRequestCheckExist = new StringRequest(Request.Method.POST, Server.addrow + "sanpham", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                System.out.println("response" + response);
-                if (response.trim().equals("success")) {
-                    Toast.makeText(getApplicationContext(), "Add Product Success", Toast.LENGTH_LONG).show();
-                }
+
+                StringRequest stringRequest2 = new StringRequest(Request.Method.POST, Server.addrow + "mota", new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        System.out.println("response" + response);
+                        if (response.trim().equals("success")) {
+                            Toast.makeText(getApplicationContext(), "Add Success", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }) {
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<>();
+                        params.put("idsp", response);
+                        params.put("tieude1", addtitle1.getText().toString().trim());
+                        params.put("tieude2", addtitle2.getText().toString().trim());
+                        params.put("tieude3", addtitle3.getText().toString().trim());
+                        params.put("chitiet1", adddetail1.getText().toString().trim());
+                        params.put("chitiet2", adddetail2.getText().toString().trim());
+                        params.put("chitiet3", adddetail3.getText().toString().trim());
+                        params.put("anh1", "img/sanpham/"+namebrand+"/"+productname+"/mota"+"/"+name5);
+                        params.put("anh2", "img/sanpham/"+namebrand+"/"+productname+"/mota"+"/"+name6);
+                        params.put("anh3", "img/sanpham/"+namebrand+"/"+productname+"/mota"+"/"+name7);
+                        return params;
+                    }
+                };
+                requestQueue.add(stringRequest2);
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -456,7 +526,7 @@ public class Add extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("img", addimg.getText().toString().trim());
+                params.put("img", "img/sanpham/"+namebrand+"/"+name1);
                 params.put("ten", addname.getText().toString().trim());
                 params.put("idhang", ""+idhang);
                 params.put("gia", addprice.getText().toString().trim());
@@ -466,49 +536,15 @@ public class Add extends AppCompatActivity {
                 params.put("idpin", ""+idpin);
                 params.put("baohanh", addguarantee.getText().toString().trim());
                 params.put("idkm", ""+idkm);
-                params.put("img01", addimg1.getText().toString().trim());
-                params.put("img02", addimg2.getText().toString().trim());
-                params.put("img03", addimg3.getText().toString().trim());
-                params.put("img04", addimg4.getText().toString().trim());
+                params.put("img01", "img/sanpham/"+namebrand+"/"+productname+"/"+name1);
+                params.put("img02", "img/sanpham/"+namebrand+"/"+productname+"/"+name2);
+                params.put("img03", "img/sanpham/"+namebrand+"/"+productname+"/"+name3);
+                params.put("img04", "img/sanpham/"+namebrand+"/"+productname+"/"+name4);
                 params.put("kichthuoc", addscreen.getText().toString().trim());
                 params.put("cameratruoc", addfrontcam.getText().toString().trim());
                 params.put("camerasau", addrearcam.getText().toString().trim());
                 params.put("active", rdoActive.isChecked() ? "1" : "0");
                 params.put("tinhtrang", ""+status);
-                return params;
-            }
-        };
-        requestQueue.add(stringRequestCheckExist);
-    }
-
-    private void adddescription() {
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        StringRequest stringRequestCheckExist = new StringRequest(Request.Method.POST, Server.addrow + "mota", new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                System.out.println("response" + response);
-                if (response.trim().equals("success")) {
-                    Toast.makeText(getApplicationContext(), "Add Description Success", Toast.LENGTH_LONG).show();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-//                        addtitle1,addtitle2,addtitle3,addimgdes1,addimgdes2,addimgdes3,adddetail1,adddetail2,adddetail3;
-                Map<String, String> params = new HashMap<>();
-                params.put("tieude1", addtitle1.getText().toString().trim());
-                params.put("tieude2", addtitle2.getText().toString().trim());
-                params.put("tieude3", addtitle3.getText().toString().trim());
-                params.put("chitiet1", adddetail1.getText().toString().trim());
-                params.put("chitiet2", adddetail2.getText().toString().trim());
-                params.put("chitiet3", adddetail3.getText().toString().trim());
-                params.put("anh1", addimgdes1.getText().toString().trim());
-                params.put("anh2", addimgdes2.getText().toString().trim());
-                params.put("anh3", addimgdes3.getText().toString().trim());
                 return params;
             }
         };
@@ -598,6 +634,7 @@ public class Add extends AppCompatActivity {
                 for (Brand brand:databrand){
                     if (brand.getNameOfBrand().equals(addbrand.getSelectedItem().toString())){
                         idhang = brand.getId();
+                        namebrand = brand.getNameOfBrand().trim().toLowerCase().replace(" ","");
                     }
                 }
             }
@@ -607,7 +644,6 @@ public class Add extends AppCompatActivity {
             }
         });
     }
-
     private void setdataSale(ArrayList<Sale> datasale) {
         String[] item = new String[datasale.size()];
         for (int i = 0; i < datasale.size(); i++) {
@@ -653,5 +689,185 @@ public class Add extends AppCompatActivity {
                 status = 3;
             }
         });
+    }
+
+    private void requestStoragePermission() {
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+            return;
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+        }
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+    }
+
+    private void ShowFileChooser(int i) {
+        currentimage = i;
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && data != null && data.getData() != null) {
+
+            filepath = data.getData();
+            try {
+                InputStream inputStream = getContentResolver().openInputStream(filepath);
+                bitmap = BitmapFactory.decodeStream(inputStream);
+                switch (currentimage){
+                    case 1:
+                        imageView1.setImageBitmap(bitmap);
+                        name1 = getName(filepath);
+                        break;
+                    case 2:
+                        imageView2.setImageBitmap(bitmap);
+                        name2 = getName(filepath);
+                        break;
+                    case 3:
+                        imageView3.setImageBitmap(bitmap);
+                        name3 = getName(filepath);
+                        break;
+                    case 4:
+                        imageView4.setImageBitmap(bitmap);
+                        name4 = getName(filepath);
+                        break;
+                    case 5:
+                        imageView5.setImageBitmap(bitmap);
+                        name5 = getName(filepath);
+                        break;
+                    case 6:
+                        imageView6.setImageBitmap(bitmap);
+                        name6 = getName(filepath);
+                        break;
+                    case 7:
+                        imageView7.setImageBitmap(bitmap);
+                        name7 = getName(filepath);
+                        break;
+                }
+                imageStore(bitmap,currentimage);
+
+            } catch (FileNotFoundException ex) {
+                ex.printStackTrace();
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void imageStore(Bitmap bitmap,int currentimage) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100,stream);
+        byte[] imageBytes = stream.toByteArray();
+        switch (currentimage){
+            case 1:
+                encodedImage1 = android.util.Base64.encodeToString(imageBytes, Base64.DEFAULT);
+                break;
+            case 2:
+                encodedImage2 = android.util.Base64.encodeToString(imageBytes, Base64.DEFAULT);
+                break;
+            case 3:
+                encodedImage3 = android.util.Base64.encodeToString(imageBytes, Base64.DEFAULT);
+                break;
+            case 4:
+                encodedImage4 = android.util.Base64.encodeToString(imageBytes, Base64.DEFAULT);
+                break;
+            case 5:
+                encodedImage5 = android.util.Base64.encodeToString(imageBytes, Base64.DEFAULT);
+                break;
+            case 6:
+                encodedImage6 = android.util.Base64.encodeToString(imageBytes, Base64.DEFAULT);
+                break;
+            case 7:
+                encodedImage7 = android.util.Base64.encodeToString(imageBytes, Base64.DEFAULT);
+                break;
+        }
+
+    }
+
+    public void selectImage(View view, int i) {
+        ShowFileChooser(i);
+    }
+
+    private String getName(Uri uri) {
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        String document_id = cursor.getString(0);
+        document_id = document_id.substring(document_id.lastIndexOf(":") + 1);
+        cursor = getContentResolver().query(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null, MediaStore.Images.Media._ID + "=?", new String[]{document_id}, null
+        );
+        cursor.moveToFirst();
+        String name = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME));
+        cursor.close();
+        return name;
+    }
+
+    public void saveData(View view) {
+        StringRequest request = new StringRequest(Request.Method.POST, Server.createfolder +productname+"&brand="+namebrand
+                , new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                StringRequest request2 = new StringRequest(Request.Method.POST, Server.upload +"product"
+                        , new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println("error "+ error);
+                    }
+                }){
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<>();
+                        params.put("image1", encodedImage1);
+                        params.put("name1", name1);
+                        params.put("image2", encodedImage2);
+                        params.put("name2", name2);
+                        params.put("image3", encodedImage3);
+                        params.put("name3", name3);
+                        params.put("image4", encodedImage4);
+                        params.put("name4", name4);
+                        params.put("image5", encodedImage5);
+                        params.put("name5", name5);
+                        params.put("image6", encodedImage6);
+                        params.put("name6", name6);
+                        params.put("image7", encodedImage7);
+                        params.put("name7", name7);
+                        params.put("namebrand", namebrand);
+                        params.put("productname", productname);
+                        System.out.println("brandpost"+namebrand);
+                        System.out.println("productnamepost"+productname);
+                        return params;
+                    }
+                };
+                int MY_SOCKET_TIMEOUT_MS = 4000;
+                request2.setRetryPolicy(new DefaultRetryPolicy(
+                        MY_SOCKET_TIMEOUT_MS,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                requestQueue.add(request2);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue2 = Volley.newRequestQueue(getApplicationContext());
+        requestQueue2.add(request);
     }
 }

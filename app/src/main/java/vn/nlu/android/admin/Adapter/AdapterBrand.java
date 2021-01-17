@@ -108,7 +108,7 @@ public class AdapterBrand extends RecyclerView.Adapter<AdapterBrand.BrandAdapter
                     Bundle b = new Bundle();
                     b.putInt("id", brand.getId());
                     b.putString("name", brand.getNameOfBrand());
-                    b.putString("img", brand.getImg());
+                    b.putString("img", brand.getRemovehost());
                     b.putInt("active", brand.getActive());
                     Intent i = new Intent(context, Edit.class);
                     i.putExtra("data",b);

@@ -56,9 +56,9 @@ public class AdapterSlide extends RecyclerView.Adapter<AdapterSlide.SlideAdapter
     public void onBindViewHolder(@NonNull AdapterSlide.SlideAdapter holder, int position) {
         Slide slide = data.get(position);
 
-        holder.textView_idslide.setText("" + slide.getId());
+        holder.textView_idslide.setText(" " + slide.getId());
         holder.textView_activeslide.setText("" + slide.getActive());
-        Picasso.get().load(slide.getResouceImg())
+        Picasso.get().load(slide.getResouceImg().replace(" ","%20"))
                 .placeholder(R.drawable.ic_baseline_image_24)
                 .error(R.drawable.ic_baseline_broken_image_24)
                 .into(holder.imgView_slide);
@@ -105,7 +105,7 @@ public class AdapterSlide extends RecyclerView.Adapter<AdapterSlide.SlideAdapter
                     Slide slide = data.get(getAdapterPosition());
                     Bundle b = new Bundle();
                     b.putInt("id", slide.getId());
-                    b.putString("img", slide.getResouceImg());
+                    b.putString("img", slide.getRemovehost());
                     b.putInt("active", slide.getActive());
                     Intent i = new Intent(context, Edit.class);
                     i.putExtra("data",b);

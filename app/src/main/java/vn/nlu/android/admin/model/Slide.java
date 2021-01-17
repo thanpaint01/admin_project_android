@@ -1,8 +1,11 @@
 package vn.nlu.android.admin.model;
 
+import vn.nlu.android.admin.config.Server;
+
 public class Slide {
     private int id;
     private String resouceImg;
+    private String removehost;
     private int active;
     private boolean expandable;
 
@@ -35,6 +38,7 @@ public class Slide {
         this.resouceImg = resouceImg;
         this.active = active;
         this.expandable = false;
+        this.removehost = resouceImg.replace(Server.HOST,"");
     }
 
     public boolean isExpandable() {
@@ -43,5 +47,9 @@ public class Slide {
 
     public void setExpandable(boolean expandable) {
         this.expandable = expandable;
+    }
+
+    public String getRemovehost() {
+        return removehost;
     }
 }
