@@ -312,7 +312,7 @@ public class Add extends AppCompatActivity {
         };
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        request.setRetryPolicy(new DefaultRetryPolicy( 1000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        request.setRetryPolicy(new DefaultRetryPolicy( 1000, 1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(request);
     }
 }
