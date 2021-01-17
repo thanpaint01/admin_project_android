@@ -23,6 +23,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -118,6 +119,7 @@ public class Add extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                add();
             }
         }) {
             @Override
@@ -129,6 +131,8 @@ public class Add extends AppCompatActivity {
                 return params;
             }
         };
+        stringRequestCheckExist.setRetryPolicy(new DefaultRetryPolicy( 1000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
         requestQueue.add(stringRequestCheckExist);
     }
 
@@ -204,6 +208,7 @@ public class Add extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                saveData(view);
             }
         }){
             @Override
@@ -216,6 +221,8 @@ public class Add extends AppCompatActivity {
         };
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        request.setRetryPolicy(new DefaultRetryPolicy( 1000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
         requestQueue.add(request);
     }
 }

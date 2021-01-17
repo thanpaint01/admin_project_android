@@ -24,6 +24,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -225,7 +226,7 @@ public class Edit extends AppCompatActivity {
 
     private void edit() {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        StringRequest stringRequestCheckExist = new StringRequest(Request.Method.POST, Server.updaterow + "nguoidung", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.updaterow + "nguoidung", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 System.out.println("response" + response);
@@ -236,6 +237,7 @@ public class Edit extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                edit();
             }
         }) {
             @Override
@@ -260,7 +262,7 @@ public class Edit extends AppCompatActivity {
                 return params;
             }
         };
-        requestQueue.add(stringRequestCheckExist);
+        requestQueue.add(stringRequest);
     }
 
     private void requestStoragePermission() {
@@ -326,6 +328,7 @@ public class Edit extends AppCompatActivity {
     }
 
     public void saveData(View view) {
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest request = new StringRequest(Request.Method.POST, Server.upload +"user"
                 , new Response.Listener<String>() {
             @Override
@@ -334,6 +337,7 @@ public class Edit extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                saveData(view);
             }
         }){
             @Override
@@ -344,8 +348,7 @@ public class Edit extends AppCompatActivity {
                 return params;
             }
         };
-
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        request.setRetryPolicy(new DefaultRetryPolicy( 1000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(request);
     }
 

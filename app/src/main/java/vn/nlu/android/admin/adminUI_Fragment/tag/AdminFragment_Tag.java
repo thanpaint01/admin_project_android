@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -69,32 +70,36 @@ public class AdminFragment_Tag extends Fragment {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.getallram, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                try {
-                    JSONArray jsonArr = new JSONArray(response);
-                    for (int i = 0; i < jsonArr.length(); i++) {
-                        JSONObject jsonObject = jsonArr.getJSONObject(i);
-                        int id = jsonObject.getInt("idram");
-                        String dungluong = jsonObject.getString("dungluong");
-                        String active = jsonObject.getString("active");
+                if(response.length()==2){
+                    loadDataRam();
+                } else{
+                    try {
+                        JSONArray jsonArr = new JSONArray(response);
+                        for (int i = 0; i < jsonArr.length(); i++) {
+                            JSONObject jsonObject = jsonArr.getJSONObject(i);
+                            int id = jsonObject.getInt("idram");
+                            String dungluong = jsonObject.getString("dungluong");
+                            String active = jsonObject.getString("active");
 
-                        int dataactive = 0;
+                            int dataactive = 0;
 
-                        if (active.equals("") || active.equals("null")) {
-                            dataactive = 1;
-                        } else if (active != null) dataactive = Integer.parseInt(active);
+                            if (active.equals("") || active.equals("null")) {
+                                dataactive = 1;
+                            } else if (active != null) dataactive = Integer.parseInt(active);
                             Tag ramRomBattery = new Tag(id,dungluong,dataactive);
                             dataram.add(ramRomBattery);
-                    }
-                    // SET DATA HERE
+                        }
+                        // SET DATA HERE
                         setdataRam(dataram);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.err.println(error.toString());
+                loadDataRam();
             }
         }) {
             @Override
@@ -103,6 +108,7 @@ public class AdminFragment_Tag extends Fragment {
                 return params;
             }
         };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy( 1000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(stringRequest);
     }
 
@@ -111,32 +117,36 @@ public class AdminFragment_Tag extends Fragment {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.getallrom, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                try {
-                    JSONArray jsonArr = new JSONArray(response);
-                    for (int i = 0; i < jsonArr.length(); i++) {
-                        JSONObject jsonObject = jsonArr.getJSONObject(i);
-                        int id = jsonObject.getInt("idrom");
-                        String dungluong = jsonObject.getString("dungluong");
-                        String active = jsonObject.getString("active");
+                if(response.length()==2){
+                    loadDataRom();
+                } else{
+                    try {
+                        JSONArray jsonArr = new JSONArray(response);
+                        for (int i = 0; i < jsonArr.length(); i++) {
+                            JSONObject jsonObject = jsonArr.getJSONObject(i);
+                            int id = jsonObject.getInt("idrom");
+                            String dungluong = jsonObject.getString("dungluong");
+                            String active = jsonObject.getString("active");
 
-                        int dataactive = 0;
+                            int dataactive = 0;
 
-                        if (active.equals("") || active.equals("null")) {
-                            dataactive = 1;
-                        } else if (active != null) dataactive = Integer.parseInt(active);
+                            if (active.equals("") || active.equals("null")) {
+                                dataactive = 1;
+                            } else if (active != null) dataactive = Integer.parseInt(active);
                             Tag rom = new Tag(id,dungluong,dataactive);
                             datarom.add(rom);
-                    }
-                    // SET DATA HERE
+                        }
+                        // SET DATA HERE
                         setdataRom(datarom);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.err.println(error.toString());
+                loadDataRom();
             }
         }) {
             @Override
@@ -145,6 +155,7 @@ public class AdminFragment_Tag extends Fragment {
                 return params;
             }
         };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy( 1000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(stringRequest);
     }
 
@@ -153,32 +164,36 @@ public class AdminFragment_Tag extends Fragment {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.getallpin, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                try {
-                    JSONArray jsonArr = new JSONArray(response);
-                    for (int i = 0; i < jsonArr.length(); i++) {
-                        JSONObject jsonObject = jsonArr.getJSONObject(i);
-                        int id = jsonObject.getInt("idpin");
-                        String dungluong = jsonObject.getString("dungluong");
-                        String active = jsonObject.getString("active");
+                if(response.length()==2){
+                    loadDataBattery();
+                } else{
+                    try {
+                        JSONArray jsonArr = new JSONArray(response);
+                        for (int i = 0; i < jsonArr.length(); i++) {
+                            JSONObject jsonObject = jsonArr.getJSONObject(i);
+                            int id = jsonObject.getInt("idpin");
+                            String dungluong = jsonObject.getString("dungluong");
+                            String active = jsonObject.getString("active");
 
-                        int dataactive = 0;
+                            int dataactive = 0;
 
-                        if (active.equals("") || active.equals("null")) {
-                            dataactive = 1;
-                        } else if (active != null) dataactive = Integer.parseInt(active);
+                            if (active.equals("") || active.equals("null")) {
+                                dataactive = 1;
+                            } else if (active != null) dataactive = Integer.parseInt(active);
                             Tag pin = new Tag(id,dungluong,dataactive);
                             databattery.add(pin);
-                    }
-                    // SET DATA HERE
+                        }
+                        // SET DATA HERE
                         setdataBattery(databattery);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.err.println(error.toString());
+                loadDataBattery();
             }
         }) {
             @Override
@@ -187,6 +202,7 @@ public class AdminFragment_Tag extends Fragment {
                 return params;
             }
         };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy( 1000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(stringRequest);
     }
 
@@ -195,32 +211,36 @@ public class AdminFragment_Tag extends Fragment {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.getallprice, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                try {
-                    JSONArray jsonArr = new JSONArray(response);
-                    for (int i = 0; i < jsonArr.length(); i++) {
-                        JSONObject jsonObject = jsonArr.getJSONObject(i);
-                        int id = jsonObject.getInt("idtgia");
-                        String dungluong = jsonObject.getString("khoanggia");
-                        String active = jsonObject.getString("active");
+                if(response.length()==2){
+                    loadDataPrice();
+                } else{
+                    try {
+                        JSONArray jsonArr = new JSONArray(response);
+                        for (int i = 0; i < jsonArr.length(); i++) {
+                            JSONObject jsonObject = jsonArr.getJSONObject(i);
+                            int id = jsonObject.getInt("idtgia");
+                            String dungluong = jsonObject.getString("khoanggia");
+                            String active = jsonObject.getString("active");
 
-                        int dataactive = 0;
+                            int dataactive = 0;
 
-                        if (active.equals("") || active.equals("null")) {
-                            dataactive = 1;
-                        } else if (active != null) dataactive = Integer.parseInt(active);
+                            if (active.equals("") || active.equals("null")) {
+                                dataactive = 1;
+                            } else if (active != null) dataactive = Integer.parseInt(active);
                             Tag price = new Tag(id,dungluong,dataactive);
                             dataprice.add(price);
-                    }
-                    // SET DATA HERE
+                        }
+                        // SET DATA HERE
                         setdataPrice(dataprice);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.err.println(error.toString());
+                loadDataPrice();
             }
         }) {
             @Override
@@ -229,6 +249,7 @@ public class AdminFragment_Tag extends Fragment {
                 return params;
             }
         };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy( 1000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(stringRequest);
     }
 

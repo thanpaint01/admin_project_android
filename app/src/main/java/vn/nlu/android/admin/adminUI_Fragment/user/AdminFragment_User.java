@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -62,55 +63,59 @@ public class AdminFragment_User extends Fragment {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.URLLogin, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                try {
-                    JSONArray jsonArr = new JSONArray(response);
-                    for (int i = 0; i < jsonArr.length(); i++) {
-                        JSONObject jsonObject = jsonArr.getJSONObject(i);
-                        int iduser = jsonObject.getInt("iduser");
-                        String taikhoan = jsonObject.getString("taikhoan");
-                        String matkhau = jsonObject.getString("matkhau");
+                if(response.length()==2){
+                    loadData();
+                } else{
+                    try {
+                        JSONArray jsonArr = new JSONArray(response);
+                        for (int i = 0; i < jsonArr.length(); i++) {
+                            JSONObject jsonObject = jsonArr.getJSONObject(i);
+                            int iduser = jsonObject.getInt("iduser");
+                            String taikhoan = jsonObject.getString("taikhoan");
+                            String matkhau = jsonObject.getString("matkhau");
 
-                        String ten = jsonObject.getString("ten");
-                        ten = isSet(ten);
-                        String img = jsonObject.getString("img").replace(" ","%20");
-                        if (img.equals("") || img.equals("null")) {
-                            img = "img/user/No-Image.png";
+                            String ten = jsonObject.getString("ten");
+                            ten = isSet(ten);
+                            String img = jsonObject.getString("img").replace(" ","%20");
+                            if (img.equals("") || img.equals("null")) {
+                                img = "img/user/No-Image.png";
+                            }
+                            String sdt = jsonObject.getString("sdt");
+                            sdt = isSet(sdt);
+                            String diachi = jsonObject.getString("diachi");
+                            diachi = isSet(diachi);
+                            String email = jsonObject.getString("email");
+                            email = isSet(email);
+                            String gioitinh = jsonObject.getString("gioitinh");
+                            gioitinh = isSet(gioitinh);
+                            String ngaysinh = jsonObject.getString("ngaysinh");
+                            ngaysinh = isSet(ngaysinh);
+
+                            String quyen = jsonObject.getString("quyen");
+                            String active = jsonObject.getString("active");
+
+                            int dataquyen = 0, dataactive = 0;
+                            if (quyen.equals("") || quyen.equals("null")) {
+                                dataquyen = 1;
+                            } else if (quyen != null) dataquyen = Integer.parseInt(quyen);
+
+                            if (active.equals("") || active.equals("null")) {
+                                dataactive = 1;
+                            } else if (active != null) dataactive = Integer.parseInt(active);
+                            User user = new User(iduser, taikhoan, matkhau, ten, Server.HOST + img, sdt, diachi, email, gioitinh, ngaysinh, dataquyen, dataactive);
+                            data.add(user);
                         }
-                        String sdt = jsonObject.getString("sdt");
-                        sdt = isSet(sdt);
-                        String diachi = jsonObject.getString("diachi");
-                        diachi = isSet(diachi);
-                        String email = jsonObject.getString("email");
-                        email = isSet(email);
-                        String gioitinh = jsonObject.getString("gioitinh");
-                        gioitinh = isSet(gioitinh);
-                        String ngaysinh = jsonObject.getString("ngaysinh");
-                        ngaysinh = isSet(ngaysinh);
-
-                        String quyen = jsonObject.getString("quyen");
-                        String active = jsonObject.getString("active");
-
-                        int dataquyen = 0, dataactive = 0;
-                        if (quyen.equals("") || quyen.equals("null")) {
-                            dataquyen = 1;
-                        } else if (quyen != null) dataquyen = Integer.parseInt(quyen);
-
-                        if (active.equals("") || active.equals("null")) {
-                            dataactive = 1;
-                        } else if (active != null) dataactive = Integer.parseInt(active);
-                        User user = new User(iduser, taikhoan, matkhau, ten, Server.HOST + img, sdt, diachi, email, gioitinh, ngaysinh, dataquyen, dataactive);
-                        data.add(user);
+                        // SET DATA HERE
+                        setdata(data);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                    // SET DATA HERE
-                    setdata(data);
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.err.println(error.toString());
+                loadData();
             }
         }) {
             @Override
@@ -119,6 +124,7 @@ public class AdminFragment_User extends Fragment {
                 return params;
             }
         };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy( 1000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(stringRequest);
     }
 

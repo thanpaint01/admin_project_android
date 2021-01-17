@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -95,7 +96,7 @@ public class Add extends AppCompatActivity {
 
     private void add() {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        StringRequest stringRequestCheckExist = new StringRequest(Request.Method.POST, Server.addrow + "khuyenmai", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.addrow + "khuyenmai", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 System.out.println("response" + response);
@@ -106,6 +107,7 @@ public class Add extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                add();
             }
         }) {
             @Override
@@ -118,7 +120,9 @@ public class Add extends AppCompatActivity {
                 return params;
             }
         };
-        requestQueue.add(stringRequestCheckExist);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy( 1000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        requestQueue.add(stringRequest);
     }
 
     public boolean isDate(String dateStr) {

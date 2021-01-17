@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -61,35 +62,39 @@ public class AdminFragment_Sale extends Fragment {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.getallsale, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                try {
-                    JSONArray jsonArr = new JSONArray(response);
-                    for (int i = 0; i < jsonArr.length(); i++) {
-                        JSONObject jsonObject = jsonArr.getJSONObject(i);
-                        int id = jsonObject.getInt("idkm");
-                        String discount = jsonObject.getString("sale");
-                        String ngaybdkm = jsonObject.getString("ngaybdkm");
-                        String ngayktkm = jsonObject.getString("ngayktkm");
+                if(response.length()==2){
+                    loadData();
+                } else{
+                    try {
+                        JSONArray jsonArr = new JSONArray(response);
+                        for (int i = 0; i < jsonArr.length(); i++) {
+                            JSONObject jsonObject = jsonArr.getJSONObject(i);
+                            int id = jsonObject.getInt("idkm");
+                            String discount = jsonObject.getString("sale");
+                            String ngaybdkm = jsonObject.getString("ngaybdkm");
+                            String ngayktkm = jsonObject.getString("ngayktkm");
 
-                        String active = jsonObject.getString("active");
+                            String active = jsonObject.getString("active");
 
-                        int dataactive = 0;
+                            int dataactive = 0;
 
-                        if (active.equals("") || active.equals("null")) {
-                            dataactive = 1;
-                        } else if (active != null) dataactive = Integer.parseInt(active);
-                        Sale sale = new Sale(id, discount,ngaybdkm,ngayktkm, dataactive);
-                        data.add(sale);
+                            if (active.equals("") || active.equals("null")) {
+                                dataactive = 1;
+                            } else if (active != null) dataactive = Integer.parseInt(active);
+                            Sale sale = new Sale(id, discount,ngaybdkm,ngayktkm, dataactive);
+                            data.add(sale);
+                        }
+                        // SET DATA HERE
+                        setdata(data);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                    // SET DATA HERE
-                    setdata(data);
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.err.println(error.toString());
+                loadData();
             }
         }) {
             @Override
@@ -98,6 +103,7 @@ public class AdminFragment_Sale extends Fragment {
                 return params;
             }
         };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy( 1000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(stringRequest);
     }
 

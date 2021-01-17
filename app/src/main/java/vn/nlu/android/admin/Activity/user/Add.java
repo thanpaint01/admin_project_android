@@ -24,6 +24,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -188,11 +189,11 @@ public class Add extends AppCompatActivity {
     }
 
     private void add() {
+
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        StringRequest stringRequestCheckExist = new StringRequest(Request.Method.POST, Server.addrow + "nguoidung", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.addrow + "nguoidung", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                System.out.println("response" + response);
                 if (response.trim().equals("success")) {
                     Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_LONG).show();
                 }
@@ -200,6 +201,7 @@ public class Add extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                add();
             }
         }) {
             @Override
@@ -223,7 +225,7 @@ public class Add extends AppCompatActivity {
                 return params;
             }
         };
-        requestQueue.add(stringRequestCheckExist);
+        requestQueue.add(stringRequest);
     }
 
     private void requestStoragePermission() {
@@ -297,6 +299,7 @@ public class Add extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                saveData(view);
             }
         }){
             @Override
@@ -309,6 +312,7 @@ public class Add extends AppCompatActivity {
         };
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        request.setRetryPolicy(new DefaultRetryPolicy( 1000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(request);
     }
 }

@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -61,37 +62,41 @@ public class AdminFragment_Slide extends Fragment {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.getallslide, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                try {
-                    JSONArray jsonArr = new JSONArray(response);
-                    for (int i = 0; i < jsonArr.length(); i++) {
-                        JSONObject jsonObject = jsonArr.getJSONObject(i);
-                        int id = jsonObject.getInt("idslide");
+                if(response.length()==2){
+                    loadData();
+                } else{
+                    try {
+                        JSONArray jsonArr = new JSONArray(response);
+                        for (int i = 0; i < jsonArr.length(); i++) {
+                            JSONObject jsonObject = jsonArr.getJSONObject(i);
+                            int id = jsonObject.getInt("idslide");
 
-                        String img = jsonObject.getString("srcslide");
-                        if (img.equals("") || img.equals("null")) {
-                            img = "img/user/No-Image.png";
+                            String img = jsonObject.getString("srcslide");
+                            if (img.equals("") || img.equals("null")) {
+                                img = "img/user/No-Image.png";
+                            }
+
+                            String active = jsonObject.getString("active");
+
+                            int dataactive = 0;
+
+                            if (active.equals("") || active.equals("null")) {
+                                dataactive = 1;
+                            } else if (active != null) dataactive = Integer.parseInt(active);
+                            Slide slide = new Slide(id,Server.HOST + img, dataactive);
+                            data.add(slide);
                         }
-
-                        String active = jsonObject.getString("active");
-
-                        int dataactive = 0;
-
-                        if (active.equals("") || active.equals("null")) {
-                            dataactive = 1;
-                        } else if (active != null) dataactive = Integer.parseInt(active);
-                        Slide slide = new Slide(id,Server.HOST + img, dataactive);
-                        data.add(slide);
+                        // SET DATA HERE
+                        setdata(data);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                    // SET DATA HERE
-                    setdata(data);
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.err.println(error.toString());
+                loadData();
             }
         }) {
             @Override
@@ -100,6 +105,7 @@ public class AdminFragment_Slide extends Fragment {
                 return params;
             }
         };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy( 1000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(stringRequest);
     }
 

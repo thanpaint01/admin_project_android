@@ -230,7 +230,7 @@ public class Add extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.err.println(error.toString());
+                loadDataRam();
             }
         }) {
             @Override
@@ -239,6 +239,8 @@ public class Add extends AppCompatActivity {
                 return params;
             }
         };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy( 1000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
         requestQueue.add(stringRequest);
     }
     public void loadDataRom() {
@@ -271,7 +273,7 @@ public class Add extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.err.println(error.toString());
+               loadDataRom();
             }
         }) {
             @Override
@@ -280,6 +282,8 @@ public class Add extends AppCompatActivity {
                 return params;
             }
         };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy( 1000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
         requestQueue.add(stringRequest);
     }
     public void loadDataBattery() {
@@ -312,7 +316,7 @@ public class Add extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.err.println(error.toString());
+                loadDataBattery();
             }
         }) {
             @Override
@@ -321,6 +325,8 @@ public class Add extends AppCompatActivity {
                 return params;
             }
         };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy( 1000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
         requestQueue.add(stringRequest);
     }
     public void loadDataBrand() {
@@ -358,7 +364,7 @@ public class Add extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.err.println(error.toString());
+                loadDataBrand();
             }
         }) {
             @Override
@@ -367,6 +373,8 @@ public class Add extends AppCompatActivity {
                 return params;
             }
         };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy( 1000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
         requestQueue.add(stringRequest);
     }
     public void loadDataSale() {
@@ -402,7 +410,7 @@ public class Add extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.err.println(error.toString());
+                loadDataSale();
             }
         }) {
             @Override
@@ -411,6 +419,8 @@ public class Add extends AppCompatActivity {
                 return params;
             }
         };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy( 1000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
         requestQueue.add(stringRequest);
     }
     boolean isEditTextEmpty(EditText text) {
@@ -497,6 +507,7 @@ public class Add extends AppCompatActivity {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        addproduct();
                     }
                 }) {
                     @Override
@@ -515,12 +526,15 @@ public class Add extends AppCompatActivity {
                         return params;
                     }
                 };
+                stringRequest2.setRetryPolicy(new DefaultRetryPolicy( 1000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
                 requestQueue.add(stringRequest2);
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                addproduct();
             }
         }) {
             @Override
@@ -548,6 +562,8 @@ public class Add extends AppCompatActivity {
                 return params;
             }
         };
+        stringRequestCheckExist.setRetryPolicy(new DefaultRetryPolicy( 1000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
         requestQueue.add(stringRequestCheckExist);
     }
 
@@ -811,6 +827,7 @@ public class Add extends AppCompatActivity {
                 , new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+
                 StringRequest request2 = new StringRequest(Request.Method.POST, Server.upload +"product"
                         , new Response.Listener<String>() {
                     @Override
@@ -820,7 +837,7 @@ public class Add extends AppCompatActivity {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        System.out.println("error "+ error);
+                        saveData(view);
                     }
                 }){
                     @Override
@@ -847,17 +864,15 @@ public class Add extends AppCompatActivity {
                         return params;
                     }
                 };
-                int MY_SOCKET_TIMEOUT_MS = 4000;
-                request2.setRetryPolicy(new DefaultRetryPolicy(
-                        MY_SOCKET_TIMEOUT_MS,
-                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                request2.setRetryPolicy(new DefaultRetryPolicy( 1000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
                 requestQueue.add(request2);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                saveData(view);
             }
         }){
             @Override
@@ -868,6 +883,8 @@ public class Add extends AppCompatActivity {
         };
 
         RequestQueue requestQueue2 = Volley.newRequestQueue(getApplicationContext());
+        request.setRetryPolicy(new DefaultRetryPolicy( 1000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
         requestQueue2.add(request);
     }
 }
