@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -167,7 +168,7 @@ public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.OrderAdapter
         }
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         String finalIdstatus = idstatus;
-        StringRequest stringRequestCheckExist = new StringRequest(Request.Method.POST, Server.updaterow + "donhang", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.updaterow + "donhang", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 System.out.println("response" + response);
@@ -178,6 +179,7 @@ public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.OrderAdapter
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                processorder(command, order);
             }
         }) {
             @Override
@@ -188,7 +190,8 @@ public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.OrderAdapter
                 return params;
             }
         };
-        requestQueue.add(stringRequestCheckExist);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy( 1000, 1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        requestQueue.add(stringRequest);
     }
 
     public void doRemove(int position){

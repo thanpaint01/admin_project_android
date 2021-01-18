@@ -17,6 +17,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -124,6 +125,7 @@ public class AdapterRom extends RecyclerView.Adapter<AdapterRom.RomAdapter> {
                             }, new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
+                                    onClick( dialog,  which);
                                 }
                             }) {
                                 @Override
@@ -135,6 +137,7 @@ public class AdapterRom extends RecyclerView.Adapter<AdapterRom.RomAdapter> {
                                 }
                             };
                             requestQueue.add(stringRequest);
+                            stringRequest.setRetryPolicy(new DefaultRetryPolicy( 1000, 1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
                             dialog.dismiss();
                         }

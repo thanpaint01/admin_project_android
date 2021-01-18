@@ -262,6 +262,8 @@ public class Edit extends AppCompatActivity {
                 return params;
             }
         };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy( 1000, 1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
         requestQueue.add(stringRequest);
     }
 

@@ -127,7 +127,6 @@ public class Edit extends AppCompatActivity {
         StringRequest stringRequestCheckExist = new StringRequest(Request.Method.POST, Server.updaterow + "hang", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                System.out.println("response" + response);
                 if (response.trim().equals("success")) {
                     Toast.makeText(getApplicationContext(), "Edit Brand Success", Toast.LENGTH_LONG).show();
                 }else Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
@@ -149,7 +148,6 @@ public class Edit extends AppCompatActivity {
             }
         };
         stringRequestCheckExist.setRetryPolicy(new DefaultRetryPolicy( 1000, 1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
         requestQueue.add(stringRequestCheckExist);
     }
 
