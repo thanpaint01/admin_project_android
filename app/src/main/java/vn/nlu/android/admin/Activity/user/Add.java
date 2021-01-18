@@ -194,6 +194,7 @@ public class Add extends AppCompatActivity {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.addrow + "nguoidung", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                System.out.println("response add"+response);
                 if (response.trim().equals("success")) {
                     Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_LONG).show();
                 }
