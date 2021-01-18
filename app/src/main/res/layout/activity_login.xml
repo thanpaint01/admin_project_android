@@ -42,7 +42,7 @@
 
             <!--            Nhap username-->
             <EditText
-                android:id="@+id/edtUsername"
+                android:id="@+id/edtextUsername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/custom_input_fields"
@@ -51,13 +51,14 @@
                 android:hint="Enter username" />
             <!--            Nhap password-->
             <EditText
-                android:id="@+id/edtPassword"
+                android:id="@+id/edtextPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/custom_input_fields"
                 android:drawableLeft="@drawable/ic_baseline_lock_24"
                 android:drawablePadding="15dp"
+                android:inputType="textPassword"
                 android:hint="Enter password" />
         </LinearLayout>
 

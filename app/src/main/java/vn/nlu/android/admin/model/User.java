@@ -2,6 +2,15 @@
 
 package vn.nlu.android.admin.model;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+import vn.nlu.android.admin.Application;
 import vn.nlu.android.admin.config.Server;
 
 public class User {
@@ -167,5 +176,55 @@ public class User {
         return img.replace(Server.HOST,"");
     }
 
+    public static User exportUser(String response) {
+        User user = null;
+        try {
+            JSONArray jsonArr = new JSONArray(response);
+
+            JSONObject jsonObject = jsonArr.getJSONObject(0);
+            int iduser = jsonObject.getInt("iduser");
+            String taikhoan = jsonObject.getString("taikhoan");
+            String ten = jsonObject.getString("ten");
+            String img = jsonObject.getString("img");
+            String sdt = jsonObject.getString("sdt");
+            String diachi = jsonObject.getString("diachi");
+            String email = jsonObject.getString("email");
+            String gioitinh = jsonObject.getString("gioitinh");
+            String ngaysinh = jsonObject.getString("ngaysinh");
+            int quyen = jsonObject.getInt("quyen");
+            int active = jsonObject.getInt("active");
+            user = new User(iduser, taikhoan, ten, img, sdt, diachi, email, gioitinh, ngaysinh, quyen, active);
+            Application.setPreferences("data", response);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    public static String getMd5(String input) {
+        try {
+            // Static getInstance method is called with hashing MD5
+            MessageDigest md = MessageDigest.getInstance("MD5");
+
+            // digest() method is called to calculate message digest
+            //  of an input digest() return array of byte
+            byte[] messageDigest = md.digest(input.getBytes());
+
+            // Convert byte array into signum representation
+            BigInteger no = new BigInteger(1, messageDigest);
+
+            // Convert message digest into hex value
+            String hashtext = no.toString(16);
+            while (hashtext.length() < 32) {
+                hashtext = "0" + hashtext;
+            }
+            return hashtext;
+        }
+
+        // For specifying wrong message digest algorithms
+        catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
 
