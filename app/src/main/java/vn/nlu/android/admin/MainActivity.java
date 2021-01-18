@@ -81,7 +81,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case R.id.admin_myinfo:
-                Toast.makeText(getApplicationContext(), "Building...", Toast.LENGTH_SHORT).show();
+                Intent b = new Intent(getApplicationContext(), InfoActivity.class);
+                startActivity(b);
                 break;
             case R.id.admin_logout:
                 Application.setPreferences("data", "");

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InfoActivity">
+
+    <include
+        layout="@layout/app_bar_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="100dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_table_row1">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingTop="10dp"
+                android:text="Thông tin của bạn"
+                android:textAlignment="center"
+                android:textColor="@color/primaryorange"
+                android:textSize="25sp" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/title"
+                android:layout_margin="5dp">
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/custom_input_fields"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:text="Họ và tên: "
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvFullName"
+                        android:layout_weight="2"
+                        android:text="Nguyễn Văn A"
+                        android:textColor="@color/gray"
+                        android:textSize="15sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/custom_input_fields"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:text="Giới tính: "
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvGender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="Nam"
+                        android:textColor="@color/gray"
+                        android:textSize="15sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/custom_input_fields"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:text="Ngày sinh: "
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvDOB"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="1999-11-10"
+                        android:textColor="@color/gray"
+                        android:textSize="15sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/custom_input_fields"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:text="Số điện thoại: "
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvPhoneNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="0358058540"
+                        android:textColor="@color/gray"
+                        android:textSize="15sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/custom_input_fields"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:text="Email: "
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvEmailAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="Thông tin email"
+                        android:textColor="@color/gray"
+                        android:textSize="15sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/custom_input_fields"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:text="Địa chỉ: "
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="Thông tin của bạagkfafhgajfio3hfhfahjfgafjfafa fafafa fafaffn"
+                        android:textColor="@color/gray"
+                        android:textSize="15sp" />
+                </TableRow>
+            </TableLayout>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

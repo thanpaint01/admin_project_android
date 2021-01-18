@@ -64,6 +64,15 @@ public class LoginActivity extends AppCompatActivity {
                     try {
                         JSONArray jsonArr = new JSONArray(response);
                         JSONObject jsonObject = jsonArr.getJSONObject(0);
+                        int iduser = jsonObject.getInt("iduser");
+                        String taikhoan = jsonObject.getString("taikhoan");
+                        String ten = jsonObject.getString("ten");
+                        String img = jsonObject.getString("img");
+                        String sdt = jsonObject.getString("sdt");
+                        String diachi = jsonObject.getString("diachi");
+                        String email = jsonObject.getString("email");
+                        String gioitinh = jsonObject.getString("gioitinh");
+                        String ngaysinh = jsonObject.getString("ngaysinh");
                         int quyen = jsonObject.getInt("quyen");
                         int active = jsonObject.getInt("active");
 
@@ -84,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "Sai tài khoản hoặc mật khẩu " + error.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "error:" + error.toString(), Toast.LENGTH_LONG).show();
             }
         }) {
             @Override
@@ -96,7 +105,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
         requestQueue.add(stringRequest);
-
     }
 
 }
